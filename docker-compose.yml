@@ -5,10 +5,8 @@ services:
         image: postgres
         volumes:
             - ./data/db:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_DB=postgres
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
+        env_file:
+            - .env.dev
     backend:
         build: ./backend
         env_file:
@@ -24,7 +22,7 @@ services:
     frontend:
         build: ./frontend
         volumes: 
-            - ./frontend:/frontend
+            - ./frontend/:/frontend/
         ports:
             - "3000:3000"
         

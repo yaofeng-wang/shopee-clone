@@ -1,8 +1,45 @@
 import './App.css';
+import Container from 'react-bootstrap/Container';
+import React, {useEffect, useState} from 'react';
 
 function App() {
+
+  const [products, setProducts] = useState([])
+  
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/products/')
+    .then(response => response.json())
+    .then(data => {
+      setProducts(data)
+    })
+
+  }, [])
+
+    
   return (
-        <p>Hello World</p>
+        <>
+          <Container>
+            <h1 className="header">
+            navigation with search
+            </h1>
+          </Container>
+          <Container>
+            <h1 className="header">
+              flash deals
+            </h1>
+          </Container>
+          <Container>
+            <h1 className="header">
+            daily discovered / recommendations
+            </h1>
+          </Container>
+          <ul>
+            {
+              products.map((item,index) => 
+              <li key={index}>{item.name}</li>)
+            }
+          </ul>
+        </>
   );
 }
 
