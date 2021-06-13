@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.8-slim
 
 ENV PYTHONUNBUFFERED 1
 
@@ -11,4 +11,3 @@ COPY . .
 RUN python3 -m pip install --upgrade pip && \
     pip install -r requirements.txt
 
-CMD ./startup.sh
