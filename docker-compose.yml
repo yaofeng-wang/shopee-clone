@@ -9,6 +9,7 @@ services:
             - .env.dev
     backend:
         build: ./backend
+        command: "sh -c ./entrypoint.dev.sh"
         env_file:
             - .env.dev
         volumes:
