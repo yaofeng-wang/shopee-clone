@@ -1,5 +1,5 @@
 import os
-from backend import settings
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse
 
