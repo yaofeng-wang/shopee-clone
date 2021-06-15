@@ -15,16 +15,16 @@ services:
         volumes:
             - ./backend:/backend
         ports:
-            - "8000:8000"
+            - 8000:8000
         depends_on: 
             - db
         links:
             - db:db
     frontend:
-        build: ./frontend
+        build: ./backend/frontend
         volumes: 
-            - ./frontend/:/frontend/
+            - ./backend/frontend/:/frontend/
         ports:
-            - "3000:3000"
+            - 3000:3000
         
 

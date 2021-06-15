@@ -2,30 +2,12 @@ version: "3.9"
 
 services:
     db:
-        image: postgres
-        volumes:
-            - ./data/db:/var/lib/postgresql/data
         env_file:
             - .env.prod
     backend:
-        build: ./backend
-        command: "sh -c entrypoint.prod.sh"
+        command: "sh -c ./entrypoint.prod.sh"
         env_file:
             - .env.prod
-        volumes:
-            - ./backend:/backend
-        ports:
-            - "8000:8000"
-        depends_on: 
-            - db
-        links:
-            - db:db
-    frontend:
-        build: ./frontend
-        volumes: 
-            - ./frontend/:/frontend/
-        ports:
-            - "3000:3000"
     nginx:
         build: ./nginx
         ports:
