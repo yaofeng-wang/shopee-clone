@@ -7,6 +7,3 @@ data/
 # django
 __pycache__/
 migrations/
-
-# env variables
-.env.dev
