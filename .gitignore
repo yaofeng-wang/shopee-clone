@@ -7,3 +7,4 @@ data/
 # django
 __pycache__/
 migrations/
+

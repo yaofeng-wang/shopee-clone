@@ -1,5 +1,6 @@
 name: CI/CD
 
+
 on:
 
   push:
@@ -13,6 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
+
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -41,8 +43,9 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./backend
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      
+
       - name: Copy files into EC2 instance
+
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.AWS_HOST }}
@@ -63,6 +66,7 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PEM }}
           port: ${{ secrets.AWS_PORT }}
+
             
       - name: Configuring AWS credentials within EC2 instance
         uses: aws-actions/configure-aws-credentials@v1
