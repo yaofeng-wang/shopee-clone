@@ -8,5 +8,3 @@ data/
 __pycache__/
 migrations/
 
-# env variables
-.env.dev
