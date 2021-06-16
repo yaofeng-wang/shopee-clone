@@ -79,5 +79,5 @@ jobs:
         run: |
             aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin $ECR_REGISTRY
             docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-            docker-compose -f docker-compose.yml docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
             docker rmi $(docker images -f "dangling=true" -q)      
