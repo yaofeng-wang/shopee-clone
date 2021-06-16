@@ -41,6 +41,16 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./backend
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      
+      - name: Copy files into EC2 instance
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_PEM }}
+          port: ${{ secrets.AWS_PORT}}
+          source: "."
+          target: "."
           
       - name: SSH into EC2 instance
         uses: appleboy/ssh-action@master
