@@ -63,6 +63,8 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PEM }}
           port: ${{ secrets.AWS_PORT }}
+          script: |
+            uname -a
             
       - name: Configuring AWS credentials within EC2 instance
         uses: aws-actions/configure-aws-credentials@v1
