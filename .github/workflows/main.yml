@@ -68,17 +68,9 @@ jobs:
           port: ${{ secrets.AWS_PORT }}
           script: |
             uname -a
-            sudo amazon-linux-extras install docker
-            sudo service docker start
-            sudo usermod -a -G docker ec2-user
-            sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-            docker -v
-            docker-compose version
-            aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 285785138545.dkr.ecr.ap-southeast-1.amazonaws.com
-            docker pull 285785138545.dkr.ecr.ap-southeast-1.amazonaws.com/shopee-clone:latest
-            docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-            docker rmi $(docker images -f "dangling=true" -q) 
-            
 
+            
+      - name: test
+        run: |
+          uname -a
      
