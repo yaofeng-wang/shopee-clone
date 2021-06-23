@@ -1,4 +1,4 @@
-FROM node
+FROM node AS builder
 
 WORKDIR /nodebuild
 
@@ -19,4 +19,6 @@ RUN python3 -m pip install --upgrade pip && \
 
 COPY . /backend
 
-COPY --from=0 /nodebuild/build /backend/frontend/
+COPY --from=builder /nodebuild/build /backend/frontend/build
+
+RUN ls /backend/frontend/build
