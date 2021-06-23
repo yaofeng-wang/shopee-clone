@@ -19,4 +19,4 @@ RUN python3 -m pip install --upgrade pip && \
 
 COPY . /backend
 
-COPY --from=0 /nodebuild/build /backend/frontend/build
+COPY --from=0 /nodebuild/build /backend/frontend/
