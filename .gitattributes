@@ -1,2 +1,5 @@
 docker-compose.prod.yml merge=ours
 .github/workflows/main.yml merge=ours
+.env.prod merge=ours
+*/settings_prod.py merge=ours
+*/entrypoint.prod.sh merge=ours
