@@ -58,5 +58,5 @@ jobs:
           script: |
             aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 285785138545.dkr.ecr.ap-southeast-1.amazonaws.com
             docker pull 285785138545.dkr.ecr.ap-southeast-1.amazonaws.com/shopee-clone:latest
-            docker-compose -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.prod.yml up -d --build
 
