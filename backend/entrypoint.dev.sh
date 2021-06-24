@@ -2,6 +2,7 @@
 
 python manage.py makemigrations --no-input;
 python manage.py migrate --no-input;
+python manage.py collectstatic;
 
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ]
 then
