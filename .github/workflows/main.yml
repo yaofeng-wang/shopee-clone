@@ -1,23 +1,15 @@
 name: CI/CD
 
 on:
-
   push:
     branches: [ production ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-
   deploy:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -64,14 +56,7 @@ jobs:
           key: ${{ secrets.AWS_PEM }}
           port: ${{ secrets.AWS_PORT }}
           script: |
-            sudo amazon-linux-extras install docker
-            sudo service docker start
-            sudo usermod -a -G docker ec2-user
-            sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-            docker -v
-            docker-compose version
             aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 285785138545.dkr.ecr.ap-southeast-1.amazonaws.com
             docker pull 285785138545.dkr.ecr.ap-southeast-1.amazonaws.com/shopee-clone:latest
-            docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.prod.yml up -d
 
