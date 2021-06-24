@@ -3,3 +3,4 @@ docker-compose.prod.yml merge=ours
 .env.prod merge=ours
 */settings_prod.py merge=ours
 */entrypoint.prod.sh merge=ours
+gunicorn.conf.py merge=ours
