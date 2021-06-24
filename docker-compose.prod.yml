@@ -12,8 +12,6 @@ services:
         command: "sh -c ./entrypoint.prod.sh"
         env_file:
             - .env.prod
-        volumes:
-            - ./backend:/backend
         ports:
             - 8000:8000
         depends_on: 
