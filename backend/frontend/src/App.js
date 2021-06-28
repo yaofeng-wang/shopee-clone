@@ -1,8 +1,10 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import React, {useEffect, useState} from 'react';
+import ProductSummaryList from './components/ProductSummaryList.js';
+import NavigationBar from './components/NavigationBar.js';
 
-function App() {
+export default function App() {
 
   const [products, setProducts] = useState([])
   
@@ -18,29 +20,8 @@ function App() {
     
   return (
         <>
-          <Container>
-            <h1 className="header">
-            navigation with search!!
-            </h1>
-          </Container>
-          <Container>
-            <h1 className="header">
-              flash deals
-            </h1>
-          </Container>
-          <Container>
-            <h1 className="header">
-            daily discovered / recommendations
-            </h1>
-          </Container>
-          <ul>
-            {
-              products.map((item,index) => 
-              <li key={index}>{item.name}</li>)
-            }
-          </ul>
+          <NavigationBar/ >;
+          <ProductSummaryList products={products} />;
         </>
   );
 }
-
-export default App;
