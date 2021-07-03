@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import ProductSummaryList from "./components/ProductList.js";
-import NavigationBar from "./components/NavigationBar.js";
+import ProductSummaryList from "./components/ProductList";
+import NavigationBar from "./components/NavigationBar";
 import firebase from "firebase";
 import {
   BrowserRouter as Router,
@@ -12,18 +12,15 @@ import {
 import LoginPanel from "./components/LoginPanel";
 import ProfilePanel from "./components/ProfilePanel";
 import { initFirebase } from "./components/FirebaseAuth";
+import useFetch from "./components/useFetch";
 
-export default function App() {
-  const [products, setProducts] = useState([]);
+const App = () => {
+  const [products, setProducts] = useState(null);
+  const [error, setError] = useState(null);
   const [loginStatus, setLoginStatus] = useState(false);
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    fetch("http://localhost/api/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-      });
-  }, []);
+  useFetch("http://localhost/api/products/", setProducts, setError);
 
   useEffect(() => {
     initFirebase();
@@ -31,6 +28,8 @@ export default function App() {
       .auth()
       .onAuthStateChanged((user) => {
         setLoginStatus(!!user);
+        setUser(user);
+        console.log(user);
       });
     return () => unregisterAuthObserver();
   }, []);
@@ -40,7 +39,12 @@ export default function App() {
       <NavigationBar loginStatus={loginStatus} />
       <Switch>
         <Route exact path="/">
-          <ProductSummaryList products={products} />
+          {error && <div>{error}</div>}
+          {!products ? (
+            <p>Loading</p>
+          ) : (
+            <ProductSummaryList products={products} />
+          )}
         </Route>
         <Route
           path="/login"
@@ -54,4 +58,6 @@ export default function App() {
       </Switch>
     </Router>
   );
-}
+};
+
+export default App;
