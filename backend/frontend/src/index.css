@@ -34,3 +34,11 @@
   margin: 0 auto;
   border: 2px solid #f2f2f2;
 }
+
+.login-box {
+  margin: auto auto 50px auto;
+  display: flex;
+  justify-content: center;
+  border: 5px solid #f2f2f2;
+  max-width: 500px;
+}

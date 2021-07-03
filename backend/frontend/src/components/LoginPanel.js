@@ -1,18 +1,15 @@
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { initFirebase, uiConfig } from "./FirebaseAuth";
 
-const uiConfig = {
-  signInFlow: "popup",
-  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-  callbacks: {
-    signInSuccess: () => false,
-  },
-};
-
-export default function LoginPanel(props) {
-  const loginStatus = props.loginStatus;
+export default function LoginPanel() {
+  initFirebase();
 
   return (
-    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+    <div className="login-box">
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+    </div>
   );
 }
+
+LoginPanel.propTypes = {};

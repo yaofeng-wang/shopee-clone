@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import LoginPanel from "./components/LoginPanel";
 import ProfilePanel from "./components/ProfilePanel";
-import authenticateWithFirebase from "./components/FirebaseAuth";
+import { initFirebase } from "./components/FirebaseAuth";
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -26,7 +26,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    authenticateWithFirebase();
+    initFirebase();
     const unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged((user) => {
@@ -45,11 +45,7 @@ export default function App() {
         <Route
           path="/login"
           render={() =>
-            !loginStatus ? (
-              <LoginPanel loginStatus={loginStatus} />
-            ) : (
-              <Redirect to="/profile" />
-            )
+            !loginStatus ? <LoginPanel /> : <Redirect to="/profile" />
           }
         ></Route>
         <Route path="/profile">

@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-const authenticateWithFirebase = () => {
+const initFirebase = () => {
   const firebaseConfig = {
     apiKey: "AIzaSyCDFyPk6pnFJHu7diGyC1EwlSA31_QOz8w",
     authDomain: "shopee-clone-19ea7.firebaseapp.com",
@@ -15,4 +15,12 @@ const authenticateWithFirebase = () => {
   }
 };
 
-export default authenticateWithFirebase;
+const uiConfig = {
+  signInFlow: "popup",
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  callbacks: {
+    signInSuccess: () => false,
+  },
+};
+
+export { uiConfig, initFirebase };
