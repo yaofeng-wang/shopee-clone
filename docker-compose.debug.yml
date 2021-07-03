@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+    db:
+        image: postgres
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+        env_file:
+            - .env.debug
+    backend:
+        build: ./backend
+        command: "sh -c ./entrypoint.debug.sh"
+        env_file:
+            - .env.debug
+        volumes:
+            - ./backend:/backend
+        ports:
+            - 80:8000
+            - 5678:5678
+        depends_on: 
+            - db
+        links:
+            - db:db
+    frontend:
+        build: ./backend/frontend
+        volumes: 
+            - ./backend/frontend/:/frontend/
+        ports:
+            - 3000:3000
