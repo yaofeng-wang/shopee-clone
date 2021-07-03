@@ -18,7 +18,6 @@ const App = () => {
   const [products, setProducts] = useState(null);
   const [error, setError] = useState(null);
   const [loginStatus, setLoginStatus] = useState(false);
-  const [user, setUser] = useState(null);
 
   useFetch("http://localhost/api/products/", setProducts, setError);
 
@@ -28,7 +27,6 @@ const App = () => {
       .auth()
       .onAuthStateChanged((user) => {
         setLoginStatus(!!user);
-        setUser(user);
         console.log(user);
       });
     return () => unregisterAuthObserver();

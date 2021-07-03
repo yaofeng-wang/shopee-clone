@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import firebase from "firebase";
+import PropTypes from "prop-types";
 
-export default function NavigationBar({ loginStatus }) {
+const NavigationBar = ({ loginStatus }) => {
   return (
     <nav className="navbar">
       <Link className="title" to="/">
@@ -21,4 +22,10 @@ export default function NavigationBar({ loginStatus }) {
       </div>
     </nav>
   );
-}
+};
+
+NavigationBar.propTypes = {
+  loginStatus: PropTypes.bool.isRequired,
+};
+
+export default NavigationBar;
