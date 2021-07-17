@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import Product, UserProfile
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['url', 'id', 'seller', 'name', 'price'] 
+        fields = ['seller', 'name', 'price', 'image'] 
 
-class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['url', 'id', 'username', 'email'] 
+        fields = ['id', 'username', 'email'] 

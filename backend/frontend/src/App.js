@@ -13,6 +13,7 @@ import LoginPanel from "./components/LoginPanel";
 import ProfilePanel from "./components/ProfilePanel";
 import { initFirebase } from "./components/FirebaseAuth";
 import useFetch from "./components/useFetch";
+import AddProductForm from "./components/AddProductForm";
 
 const App = () => {
   const [products, setProducts] = useState(null);
@@ -41,7 +42,10 @@ const App = () => {
           {!products ? (
             <p>Loading</p>
           ) : (
-            <ProductSummaryList products={products} />
+            <>
+              <AddProductForm />
+              <ProductSummaryList products={products} />
+            </>
           )}
         </Route>
         <Route
