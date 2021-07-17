@@ -8,8 +8,11 @@ const Product = ({ product }) => {
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card&apos;s content.
+            <p>Price : S${product.price} </p>
+            <p>
+              Some quick example text to build on the card title and make up the
+              bulk of the card&apos;s content.
+            </p>
           </Card.Text>
         </Card.Body>
       </Card>

@@ -13,7 +13,6 @@ import LoginPanel from "./components/LoginPanel";
 import ProfilePanel from "./components/ProfilePanel";
 import { initFirebase } from "./components/FirebaseAuth";
 import useFetch from "./components/useFetch";
-import AddProductForm from "./components/AddProductForm";
 
 const App = () => {
   const [products, setProducts] = useState(null);
@@ -28,7 +27,6 @@ const App = () => {
       .auth()
       .onAuthStateChanged((user) => {
         setLoginStatus(!!user);
-        console.log(user);
       });
     return () => unregisterAuthObserver();
   }, []);
@@ -43,7 +41,6 @@ const App = () => {
             <p>Loading</p>
           ) : (
             <>
-              <AddProductForm />
               <ProductSummaryList products={products} />
             </>
           )}
