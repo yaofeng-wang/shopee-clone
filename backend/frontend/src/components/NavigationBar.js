@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
-import firebase from "firebase";
 import PropTypes from "prop-types";
+import { useAuth } from "./AuthContext";
 
-const NavigationBar = ({ loginStatus }) => {
+const NavigationBar = () => {
+  const { user, signout } = useAuth();
+
   return (
     <nav className="navbar">
       <Link className="title" to="/">
         Shopee Clone Project
       </Link>
       <div>
-        {loginStatus ? (
+        {user ? (
           <>
             <Link to="/profile">Profile</Link>
-            <Link to="/" onClick={() => firebase.auth().signOut()}>
+            <Link to="/" onClick={signout}>
               Log out
             </Link>
           </>
