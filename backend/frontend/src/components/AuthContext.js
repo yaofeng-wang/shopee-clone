@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import PropTypes from "prop-types";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 const authContext = createContext();
 
@@ -49,6 +50,10 @@ function useProvideAuth() {
       });
   };
 
+  const signInButton = (
+    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+  );
+
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -64,7 +69,7 @@ function useProvideAuth() {
   return {
     user,
     signout,
-    uiConfig,
+    signInButton,
   };
 }
 
