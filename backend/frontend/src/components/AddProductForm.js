@@ -1,16 +1,11 @@
 import { useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-// import { useHistory } from "react-router-dom";
 
 const AddProductForm = () => {
-  // const [name, setName] = useState("");
   const nameRef = useRef();
   const priceRef = useRef();
   const imageRef = useRef();
-  // const history = useHistory();
-  // const [price, setPrice] = useState("");
-  // const [image, setImage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
