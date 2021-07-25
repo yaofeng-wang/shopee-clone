@@ -39,7 +39,7 @@ function useProvideAuth() {
     signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
-      signInSuccess: () => false,
+      signInSuccessWithAuthResult: () => false,
     },
   };
 
@@ -60,7 +60,7 @@ function useProvideAuth() {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        history.pushState("/");
+        history.push("/");
       } else {
         setUser(false);
       }
@@ -77,5 +77,5 @@ function useProvideAuth() {
 }
 
 ProvideAuth.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.any,
 };

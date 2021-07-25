@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+
 import { useAuth } from "./AuthContext";
 
 const NavigationBar = () => {
@@ -24,10 +24,6 @@ const NavigationBar = () => {
       </div>
     </nav>
   );
-};
-
-NavigationBar.propTypes = {
-  loginStatus: PropTypes.bool.isRequired,
 };
 
 export default NavigationBar;

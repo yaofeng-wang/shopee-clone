@@ -7,12 +7,10 @@ const Product = ({ product }) => {
       <Card style={{ flex: "1 0 21%" }}>
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
+          <Card.Text>Price : S${product.price}</Card.Text>
           <Card.Text>
-            <p>Price : S${product.price} </p>
-            <p>
-              Some quick example text to build on the card title and make up the
-              bulk of the card&apos;s content.
-            </p>
+            Some quick example text to build on the card title and make up the
+            bulk of the card&apos;s content.
           </Card.Text>
         </Card.Body>
       </Card>
