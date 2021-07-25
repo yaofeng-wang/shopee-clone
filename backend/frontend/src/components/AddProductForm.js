@@ -1,46 +1,52 @@
-import { useState } from "react";
+import { useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+// import { useHistory } from "react-router-dom";
 
 const AddProductForm = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState(null);
+  // const [name, setName] = useState("");
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const imageRef = useRef();
+  // const history = useHistory();
+  // const [price, setPrice] = useState("");
+  // const [image, setImage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     let data = new FormData();
     data.append("seller", "1");
-    data.append("name", name);
-    data.append("price", price);
-    data.append("image", image, image.name);
+    data.append("name", nameRef.current.value);
+    data.append("price", priceRef.current.value);
+    data.append(
+      "image",
+      imageRef.current.files[0],
+      imageRef.current.files[0].name
+    );
 
-    fetch("http://localhost/api/products/", {
+    await fetch("http://localhost/api/products/", {
       method: "POST",
       body: data,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        document.getElementById("add-product-form").reset();
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-
-    setName("");
-    setPrice("");
-    setImage(null);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form id="add-product-form" onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="productName">
         <Form.Label>Name</Form.Label>
         <Form.Control
           type="text"
-          onChange={(e) => setName(e.target.value)}
+          ref={nameRef}
           placeholder="Enter product name"
+          required
         />
       </Form.Group>
 
@@ -48,20 +54,18 @@ const AddProductForm = () => {
         <Form.Label>Price</Form.Label>
         <Form.Control
           type="text"
-          onChange={(e) => setPrice(e.target.value)}
+          ref={priceRef}
           placeholder="Enter product price"
+          required
         />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="productImage">
         <Form.Label>Image</Form.Label>
-        <Form.Control
-          type="file"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+        <Form.Control type="file" ref={imageRef} required />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button className="w-100" variant="light" type="submit">
         Submit
       </Button>
     </Form>
