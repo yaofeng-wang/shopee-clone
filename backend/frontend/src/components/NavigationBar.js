@@ -15,11 +15,11 @@ const NavigationBar = () => {
           <>
             <Link to="/profile">Profile</Link>
             <Link to="/" onClick={signout}>
-              Log out
+              Sign out
             </Link>
           </>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to="/sign-in">Sign in</Link>
         )}
       </div>
     </nav>

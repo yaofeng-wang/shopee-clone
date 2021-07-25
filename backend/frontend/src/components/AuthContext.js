@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import PropTypes from "prop-types";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { useHistory } from "react-router-dom";
 
 const authContext = createContext();
 
@@ -32,13 +33,13 @@ export function ProvideAuth({ children }) {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const history = useHistory();
 
   const uiConfig = {
     signInFlow: "popup",
-    signInSuccessUrl: "/",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
-      signInSuccess: () => true,
+      signInSuccess: () => false,
     },
   };
 
@@ -59,6 +60,7 @@ function useProvideAuth() {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        history.pushState("/");
       } else {
         setUser(false);
       }

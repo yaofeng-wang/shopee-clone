@@ -1,18 +1,18 @@
 import { useAuth } from "./AuthContext";
 import { Redirect } from "react-router-dom";
 
-export default function LoginPanel() {
+export default function SignIn() {
   const { user, signInButton } = useAuth();
 
   return (
     <>
       {user ? (
-        <Redirect to="/login" />
+        <Redirect to="/sign-in" />
       ) : (
-        <div className="login-box">{signInButton}</div>
+        <div className="sign-in-box">{signInButton}</div>
       )}
     </>
   );
 }
 
-LoginPanel.propTypes = {};
+SignIn.propTypes = {};
