@@ -9,6 +9,7 @@ import { ProvideAuth } from "./components/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import ProductDetail from "./components/ProductDetail";
 
 const App = () => {
   return (
@@ -20,6 +21,9 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={ProductList} />
               <Route path="/sign-in" component={SignIn} />
+              <Route path="/products/:id">
+                <ProductDetail />
+              </Route>
               <PrivateRoute path="/profile" component={Profile} />
             </Switch>
           </Row>

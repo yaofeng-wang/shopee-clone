@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useFetch = (url, setData) => {
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const abortCont = new AbortController();
 
@@ -13,16 +16,19 @@ const useFetch = (url, setData) => {
       })
       .then((data) => {
         setData(data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        if (err.name === "AbortError") {
-          console.log("fetch aborted");
-        } else {
-          console.log(err.message);
-        }
+        setError(err);
+        isLoading(false);
       });
     return () => abortCont.abort();
   }, [url]);
+
+  return {
+    error,
+    isLoading,
+  };
 };
 
 export default useFetch;
