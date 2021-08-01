@@ -7,8 +7,24 @@ const AddProductForm = () => {
   const priceRef = useRef();
   const imageRef = useRef();
 
+  const getCookie = (name) => {
+    if (!document.cookie) {
+      return null;
+    }
+    const token = document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((c) => c.startsWith(name + "="));
+
+    if (token.length === 0) {
+      return null;
+    }
+    return decodeURIComponent(token[0].split("=")[1]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const csrftoken = getCookie("csrftoken");
     let data = new FormData();
     data.append("seller", "1");
     data.append("name", nameRef.current.value);
@@ -21,6 +37,9 @@ const AddProductForm = () => {
 
     await fetch("/api/products/", {
       method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
       body: data,
     })
       .then((response) => response.json())
