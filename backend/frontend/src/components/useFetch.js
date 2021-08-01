@@ -4,10 +4,30 @@ const useFetch = (url, setData) => {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const getCookie = (name) => {
+    if (!document.cookie) {
+      return null;
+    }
+    const token = document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((c) => c.startsWith(name + "="));
+
+    if (token.length === 0) {
+      return null;
+    }
+    return decodeURIComponent(token[0].split("=")[1]);
+  };
+
   useEffect(() => {
     const abortCont = new AbortController();
-
-    fetch(url, { signal: abortCont.signal })
+    const csrftoken = getCookie("csrftoken");
+    fetch(url, {
+      signal: abortCont.signal,
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+    })
       .then((res) => {
         if (!res.ok) {
           throw Error("could not fetch the data for that resource");
