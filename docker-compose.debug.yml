@@ -6,16 +6,17 @@ services:
         volumes:
             - ./data/db:/var/lib/postgresql/data
         env_file:
-            - .env.dev
+            - .env.debug
     backend:
         build: ./backend
-        command: "sh -c ./entrypoint.dev.sh"
+        command: "sh -c ./entrypoint.debug.sh"
         env_file:
-            - .env.dev
+            - .env.debug
         volumes:
             - ./backend:/backend
         ports:
             - 80:8000
+            - 5678:5678
         depends_on: 
             - db
         links:

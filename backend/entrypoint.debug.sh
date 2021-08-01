@@ -1,5 +1,8 @@
 #!/bin/sh
 
+pip install debugpy -t /tmp;
+pip install django-debug-toolbar;
+
 python manage.py makemigrations --no-input;
 python manage.py migrate --no-input;
 python manage.py collectstatic --no-input;
@@ -12,4 +15,4 @@ then
         --email $DJANGO_SUPERUSER_EMAIL;
 fi
 
-python manage.py runserver 0.0.0.0:8000;
+python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8000 --nothreading --noreload

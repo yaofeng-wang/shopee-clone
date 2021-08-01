@@ -23,11 +23,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static'),
 ]
-
-# User uploaded files
-MEDIA_URL = '/mediafiles/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+
+INSTALLED_APPS += ['debug_toolbar']
+
+def show_toolbar(request):
+    return True
+    
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+}

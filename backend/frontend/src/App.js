@@ -1,46 +1,36 @@
-import './App.css';
-import Container from 'react-bootstrap/Container';
-import React, {useEffect, useState} from 'react';
+import "./App.css";
+import React from "react";
+import ProductList from "./components/ProductList";
+import NavigationBar from "./components/NavigationBar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import SignIn from "./components/SignIn";
+import Profile from "./components/Profile";
+import { ProvideAuth } from "./components/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import ProductDetail from "./components/ProductDetail";
 
-function App() {
-
-  const [products, setProducts] = useState([])
-  
-  useEffect(() => {
-    fetch('/api/products')
-    .then(response => response.json())
-    .then(data => {
-      setProducts(data)
-    })
-
-  }, [])
-
-    
+const App = () => {
   return (
-        <>
-          <Container>
-            <h1 className="header">
-            navigation with search!!
-            </h1>
-          </Container>
-          <Container>
-            <h1 className="header">
-              flash deals
-            </h1>
-          </Container>
-          <Container>
-            <h1 className="header">
-            daily discovered / recommendations
-            </h1>
-          </Container>
-          <ul>
-            {
-              products.map((item,index) => 
-              <li key={index}>{item.name}</li>)
-            }
-          </ul>
-        </>
+    <Router>
+      <ProvideAuth>
+        <NavigationBar />
+        <Container>
+          <Row>
+            <Switch>
+              <Route exact path="/" component={ProductList} />
+              <Route path="/sign-in" component={SignIn} />
+              <Route path="/products/:id">
+                <ProductDetail />
+              </Route>
+              <PrivateRoute path="/profile" component={Profile} />
+            </Switch>
+          </Row>
+        </Container>
+      </ProvideAuth>
+    </Router>
   );
-}
+};
 
 export default App;

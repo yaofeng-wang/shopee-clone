@@ -40,3 +40,7 @@
 .header {
   text-align: center;
 }
+
+a p:hover{
+  text-decoration: none;
+}
