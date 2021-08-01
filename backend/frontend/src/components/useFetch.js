@@ -20,7 +20,7 @@ const useFetch = (url, setData) => {
       })
       .catch((err) => {
         setError(err);
-        isLoading(false);
+        setIsLoading(false);
       });
     return () => abortCont.abort();
   }, [url]);
