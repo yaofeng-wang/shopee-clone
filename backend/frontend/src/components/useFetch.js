@@ -15,7 +15,14 @@ const useFetch = (url, setData) => {
         return res.json();
       })
       .then((data) => {
-        setData(data);
+        setData((prevProducts) => {
+          if (Array.isArray(prevProducts)) {
+            return [...prevProducts, ...data.results];
+          } else {
+            return data;
+          }
+        });
+
         setIsLoading(false);
       })
       .catch((err) => {
