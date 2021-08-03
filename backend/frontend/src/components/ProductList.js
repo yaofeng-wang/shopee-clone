@@ -1,37 +1,34 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CardDeck } from "react-bootstrap";
 import Product from "./Product";
 import PropTypes from "prop-types";
 import useFetch from "./useFetch";
-
-const getDisplayedProducts = (products) => {
-  if (products === null) {
-    return null;
-  }
-  const originalLength = products.length;
-  const newLength = originalLength - (originalLength % 4);
-  return products.slice(0, newLength);
-};
+import useInfiniteScroll from "./useInfiniteScroll";
 
 const ProductList = () => {
   const [products, setProducts] = useState(null);
-  const displayedProducts = getDisplayedProducts(products);
-
-  useFetch("/api/products/", setProducts);
+  const [pageNumber, setPageNumber] = useState(1);
+  const { isLoading } = useFetch(
+    `/api/products/?page=${pageNumber}`,
+    setProducts
+  );
+  const bottomBoundaryRef = useRef(null);
+  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
 
   return (
     <>
-      {products ? (
+      {!isLoading ? (
         <div className="product-list">
           <CardDeck style={{ flexWrap: "wrap" }}>
-            {displayedProducts.map((product, index) => (
+            {products.map((product, index) => (
               <Product key={index} product={product} />
             ))}
           </CardDeck>
         </div>
       ) : (
-        <p>Loading</p>
+        <div>Loading</div>
       )}
+      <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
     </>
   );
 };

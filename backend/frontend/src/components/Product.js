@@ -11,7 +11,7 @@ const Product = ({ product }) => {
   return (
     <Link
       to={`/products/${id}`}
-      style={{ flex: "1 0 21%", textDecoration: "none" }}
+      style={{ flex: "1 0 21%", textDecoration: "none", height: "300px" }}
     >
       <Card>
         <Card.Img variant="top" src={imageURL}></Card.Img>
