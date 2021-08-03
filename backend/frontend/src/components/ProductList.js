@@ -6,7 +6,7 @@ import useFetch from "./useFetch";
 import useInfiniteScroll from "./useInfiniteScroll";
 
 const ProductList = () => {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const { isLoading } = useFetch(
     `/api/products/?page=${pageNumber}`,
