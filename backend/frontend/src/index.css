@@ -8,24 +8,22 @@
 }
 
 .navbar {
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto auto 50px auto;
-  border: 2px solid #f2f2f2;
+  background-color: #e45821;
+  color: #FFFFFF;
+  min-height:100px;
 }
 
 .navbar .title {
-  color: #e45821;
+  color: #FFFFFF;
   font-size: 1.75em;
   font-weight: bold;
   margin-left: 0px;
 }
 
 .navbar a {
+  color: #FFFFFF !important;
   margin-left: 16px;
-  text-decoration: none;
+  text-decoration: none !important;
   padding: 6px;
 }
 
@@ -45,4 +43,13 @@
 
 .profile {
   border: 2px solid #f2f2f2;
+}
+
+.body {
+  padding-top: 1rem;
+  background-color: #f2f2f2;
+}
+
+.content {
+  background-color: #ffffff;
 }
