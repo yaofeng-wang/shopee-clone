@@ -9,11 +9,8 @@ const Product = ({ product }) => {
   const price = product.price;
 
   return (
-    <Link
-      to={`/products/${id}`}
-      style={{ flex: "1 0 21%", textDecoration: "none", height: "300px" }}
-    >
-      <Card>
+    <Card>
+      <Link to={`/products/${id}`}>
         <Card.Img variant="top" src={imageURL}></Card.Img>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
@@ -23,8 +20,8 @@ const Product = ({ product }) => {
             bulk of the card&apos;s content.
           </Card.Text>
         </Card.Body>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
 

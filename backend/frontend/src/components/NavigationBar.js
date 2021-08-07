@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
-
 import { useAuth } from "./AuthContext";
+import SearchBar from "./SearchBar";
 
 const NavigationBar = () => {
   const { user, signout } = useAuth();
 
   return (
-    <nav className="navbar">
+    <nav
+      className="navbar"
+      style={{ flexFlow: "row nowrap", whiteSpace: "nowrap" }}
+    >
       <Link className="title" to="/">
-        Shopee Clone Project
+        Shopee Clone
       </Link>
+      <SearchBar />
       <div>
         {user ? (
           <>

@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { CardDeck } from "react-bootstrap";
 import Product from "./Product";
 import PropTypes from "prop-types";
 import useFetch from "./useFetch";
@@ -18,12 +17,10 @@ const ProductList = () => {
   return (
     <>
       {!isLoading ? (
-        <div className="product-list">
-          <CardDeck style={{ flexWrap: "wrap" }}>
-            {products.map((product, index) => (
-              <Product key={index} product={product} />
-            ))}
-          </CardDeck>
+        <div className="cards">
+          {products.map((product, index) => (
+            <Product key={index} product={product} />
+          ))}
         </div>
       ) : (
         <div>Loading</div>

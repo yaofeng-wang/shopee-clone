@@ -5,6 +5,7 @@ import NavigationBar from "./components/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
+import FilteredProductList from "./components/FilteredProductList";
 import { ProvideAuth } from "./components/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Container from "react-bootstrap/Container";
@@ -24,9 +25,11 @@ const App = () => {
                 <Switch>
                   <Route exact path="/" component={ProductList} />
                   <Route path="/sign-in" component={SignIn} />
-                  <Route path="/products/:id">
-                    <ProductDetail />
-                  </Route>
+                  <Route
+                    path="/products-filter/"
+                    component={FilteredProductList}
+                  />
+                  <Route path="/products/:id" component={ProductDetail} />
                   <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
               </Container>
