@@ -18,6 +18,7 @@ const NavigationBar = () => {
         {user ? (
           <>
             <Link to="/profile">Profile</Link>
+            <Link to="/cart">My Cart</Link>
             <Link to="/" onClick={signout}>
               Sign out
             </Link>

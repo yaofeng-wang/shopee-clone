@@ -5,6 +5,8 @@ import NavigationBar from "./components/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 import FilteredProductList from "./components/FilteredProductList";
 import { ProvideAuth } from "./components/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
@@ -31,6 +33,8 @@ const App = () => {
                   />
                   <Route path="/products/:id" component={ProductDetail} />
                   <PrivateRoute path="/profile" component={Profile} />
+                  <PrivateRoute path="/cart" component={Cart} />
+                  <PrivateRoute path="/checkout" component={Checkout} />
                 </Switch>
               </Container>
             </Col>
