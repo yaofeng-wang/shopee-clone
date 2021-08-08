@@ -5,6 +5,8 @@ from .serializers import ProductSerializer, UserProfileSerializer
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 12
@@ -24,3 +26,11 @@ class ProductSearchListView(generics.ListAPIView):
     serializer_class = ProductSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
+
+class GetUserId(APIView):
+    
+    def post(self, request, format=None):
+        email = request.data.get('email', None)
+        username = request.data.get('username', None)
+        user = UserProfile.objects.get_or_create(username=username, email=email)        
+        return Response(user[0].pk)

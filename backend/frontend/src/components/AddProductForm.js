@@ -1,16 +1,18 @@
 import { useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useAuth } from "./AuthContext";
 
 const AddProductForm = () => {
   const nameRef = useRef();
   const priceRef = useRef();
   const imageRef = useRef();
+  const { djangoUserId } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = new FormData();
-    data.append("seller", "1");
+    data.append("seller", djangoUserId);
     data.append("name", nameRef.current.value);
     data.append("price", priceRef.current.value);
     data.append(
@@ -24,8 +26,7 @@ const AddProductForm = () => {
       body: data,
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+      .then(() => {
         document.getElementById("add-product-form").reset();
       })
       .catch((error) => {
