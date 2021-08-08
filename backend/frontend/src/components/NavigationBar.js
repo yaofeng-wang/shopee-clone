@@ -19,6 +19,7 @@ const NavigationBar = () => {
           <>
             <Link to="/profile">Profile</Link>
             <Link to="/cart">My Cart</Link>
+            <Link to="/store">My Store</Link>
             <Link to="/" onClick={signout}>
               Sign out
             </Link>

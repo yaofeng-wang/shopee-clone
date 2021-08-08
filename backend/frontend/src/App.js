@@ -1,10 +1,11 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import ProductList from "./components/ProductList";
 import NavigationBar from "./components/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
+import Store from "./components/Store";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import FilteredProductList from "./components/FilteredProductList";
@@ -16,6 +17,8 @@ import Col from "react-bootstrap/Col";
 import ProductDetail from "./components/ProductDetail";
 
 const App = () => {
+  const [cart, setCart] = useState([]);
+
   return (
     <Router>
       <ProvideAuth>
@@ -25,15 +28,22 @@ const App = () => {
             <Col>
               <Container className="content min-vh-100">
                 <Switch>
-                  <Route exact path="/" component={ProductList} />
+                  <Route
+                    exact
+                    path="/"
+                    component={ProductList}
+                    setCart={setCart}
+                  />
                   <Route path="/sign-in" component={SignIn} />
                   <Route
                     path="/products-filter/"
                     component={FilteredProductList}
+                    setCart={setCart}
                   />
                   <Route path="/products/:id" component={ProductDetail} />
                   <PrivateRoute path="/profile" component={Profile} />
-                  <PrivateRoute path="/cart" component={Cart} />
+                  <PrivateRoute path="/store" component={Store} />
+                  <PrivateRoute path="/cart" component={Cart} cart={cart} />
                   <PrivateRoute path="/checkout" component={Checkout} />
                 </Switch>
               </Container>
