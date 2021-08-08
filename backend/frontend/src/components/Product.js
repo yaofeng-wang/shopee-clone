@@ -1,12 +1,18 @@
 import { Card } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 const Product = ({ product }) => {
   const id = product.id;
   const imageURL = product.image;
   const name = product.name;
   const price = product.price;
+
+  const addToCart = (e) => {
+    e.stopPropagation();
+    console.log("add to card");
+  };
 
   return (
     <Card>
@@ -21,6 +27,9 @@ const Product = ({ product }) => {
           </Card.Text>
         </Card.Body>
       </Link>
+      <Button className="addToCartBtn" variant="light" onClick={addToCart}>
+        Add to Cart
+      </Button>
     </Card>
   );
 };

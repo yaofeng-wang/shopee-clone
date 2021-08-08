@@ -9,8 +9,8 @@ export default function Profile() {
 
   return (
     <Container>
-      <Row className="profile d-flex flex-column">
-        <h1>Personal information</h1>
+      <Row className="d-flex flex-column">
+        <h1>Personal Information</h1>
         <div>
           <strong>Display name</strong>: {user.displayName}{" "}
         </div>

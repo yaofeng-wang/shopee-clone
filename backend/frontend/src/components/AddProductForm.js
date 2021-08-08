@@ -35,36 +35,39 @@ const AddProductForm = () => {
   };
 
   return (
-    <Form id="add-product-form" onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="productName">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          ref={nameRef}
-          placeholder="Enter product name"
-          required
-        />
-      </Form.Group>
+    <>
+      <h1>Add Product</h1>
+      <Form id="add-product-form" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="productName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            ref={nameRef}
+            placeholder="Enter product name"
+            required
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3" controlId="productPrice">
-        <Form.Label>Price</Form.Label>
-        <Form.Control
-          type="text"
-          ref={priceRef}
-          placeholder="Enter product price"
-          required
-        />
-      </Form.Group>
+        <Form.Group className="mb-3" controlId="productPrice">
+          <Form.Label>Price</Form.Label>
+          <Form.Control
+            type="text"
+            ref={priceRef}
+            placeholder="Enter product price"
+            required
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3" controlId="productImage">
-        <Form.Label>Image</Form.Label>
-        <Form.Control type="file" ref={imageRef} required />
-      </Form.Group>
+        <Form.Group className="mb-3" controlId="productImage">
+          <Form.Label>Image</Form.Label>
+          <Form.Control type="file" ref={imageRef} required />
+        </Form.Group>
 
-      <Button className="w-100" variant="light" type="submit">
-        Submit
-      </Button>
-    </Form>
+        <Button className="w-100" variant="light" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </>
   );
 };
 

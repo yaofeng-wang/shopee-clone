@@ -21,7 +21,7 @@ const App = () => {
         <Container fluid className="body">
           <Row>
             <Col>
-              <Container className="content">
+              <Container className="content vh-100">
                 <Switch>
                   <Route exact path="/" component={ProductList} />
                   <Route path="/sign-in" component={SignIn} />

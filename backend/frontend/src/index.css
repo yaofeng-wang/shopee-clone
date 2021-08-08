@@ -9,19 +9,19 @@
 
 .navbar {
   background-color: #e45821;
-  color: #FFFFFF;
+  color: #ffffff;
   min-height:100px;
 }
 
 .navbar .title {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.75em;
   font-weight: bold;
   margin-left: 0px;
 }
 
 .navbar a {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   margin-left: 16px;
   text-decoration: none !important;
   padding: 6px;
@@ -29,7 +29,6 @@
 
 .cards {
   margin: 0 auto;
-  /* border: 2px solid #f2f2f2; */
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -56,10 +55,6 @@
   max-width: 500px;
 }
 
-.profile {
-  border: 2px solid #f2f2f2;
-}
-
 .body {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -68,4 +63,17 @@
 
 .content {
   background-color: #ffffff;
+}
+
+.addToCartBtn:hover {
+  background-color: #e45821 !important;
+  color: #ffffff !important;
+}
+
+.card-body {
+  height: 15rem !important;
+}
+
+body, div#root, div.body {
+  min-height: 100%;
 }
