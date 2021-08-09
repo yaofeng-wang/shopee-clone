@@ -20,18 +20,26 @@ export default function Cart({ cart, removeFromCart }) {
               style={{ width: "100%" }}
             ></img>
           </Col>
-          <Col>
-            <h3>Quantity: {v[1]}</h3>
-            <h3>{v[0].name}</h3>
+          <Col
+            className="d-flex flex-column"
+            style={{ justifyContent: "center" }}
+          >
+            <Row>Name: {v[0].name}</Row>
+            <Row>Quantity: {v[1]}</Row>
           </Col>
-          <Col>
-            <Button
-              variant="danger"
-              style={{ width: "100%" }}
-              onClick={() => removeFromCart(v[0])}
-            >
-              Remove
-            </Button>
+          <Col
+            className="d-flex flex-column"
+            style={{ justifyContent: "center" }}
+          >
+            <Row>
+              <Button
+                variant="danger"
+                style={{ width: "100%" }}
+                onClick={() => removeFromCart(v[0])}
+              >
+                Remove
+              </Button>
+            </Row>
           </Col>
         </Row>
       );
