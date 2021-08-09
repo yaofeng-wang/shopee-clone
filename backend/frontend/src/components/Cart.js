@@ -54,8 +54,17 @@ export default function Cart({ cart, removeFromCart }) {
   return (
     <>
       {cart.size == 0 ? (
-        <div style={{ textAlign: "center" }}>
-          <h1>No item in cart :(</h1>
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            height: "100vh",
+            flexDirection: "column",
+          }}
+        >
+          <h1>No item in cart</h1>
         </div>
       ) : (
         <Container>
