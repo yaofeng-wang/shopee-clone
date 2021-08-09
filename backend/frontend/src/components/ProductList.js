@@ -4,22 +4,33 @@ import PropTypes from "prop-types";
 import useFetch from "./useFetch";
 import useInfiniteScroll from "./useInfiniteScroll";
 
-const ProductList = ({ addToCart }) => {
+const ProductList = ({ url, handleOnClick, type }) => {
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const { isLoading } = useFetch(
-    `http://localhost/api/products/?page=${pageNumber}`,
-    setProducts
-  );
+  const { isLoading } = useFetch(`${url}?page=${pageNumber}`, setProducts);
   const bottomBoundaryRef = useRef(null);
   useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
+  const removeProduct = (product) => {
+    setProducts((prevProducts) => {
+      const newProducts = [...prevProducts];
+      return newProducts.filter((p) => {
+        return p.id !== product.id;
+      });
+    });
+  };
 
   return (
     <>
       {!isLoading ? (
         <div className="cards">
           {products.map((product, index) => (
-            <Product key={index} product={product} addToCart={addToCart} />
+            <Product
+              key={index}
+              product={product}
+              handleOnClick={handleOnClick}
+              type={type}
+              removeProduct={removeProduct}
+            />
           ))}
         </div>
       ) : (
@@ -31,7 +42,9 @@ const ProductList = ({ addToCart }) => {
 };
 
 ProductList.propTypes = {
-  addToCart: PropTypes.func,
+  handleOnClick: PropTypes.func,
+  url: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default ProductList;

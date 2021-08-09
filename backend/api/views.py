@@ -34,3 +34,13 @@ class GetUserId(APIView):
         username = request.data.get('username', None)
         user = UserProfile.objects.get_or_create(username=username, email=email)        
         return Response(user[0].pk)
+
+class GetUserProducts(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    pagination_class = StandardResultsSetPagination
+
+    def get(self, request, id, format=None):
+        products = self.get_queryset().filter(seller=id)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)

@@ -3,7 +3,36 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-const Product = ({ product, addToCart }) => {
+export const types = {
+  addToCart: "addToCart",
+  deleteProduct: "deleteProduct",
+};
+
+const Product = ({ product, handleOnClick, type, removeProduct }) => {
+  const typeToButton = {
+    [types.addToCart]: (
+      <Button
+        onClick={() => handleOnClick(product)}
+        className="addToCartBtn"
+        variant="light"
+      >
+        Add To Cart
+      </Button>
+    ),
+    [types.deleteProduct]: (
+      <Button
+        onClick={() => {
+          handleOnClick(product);
+          removeProduct(product);
+        }}
+        className="deleteProductBtn"
+        variant="danger"
+      >
+        Delete Product
+      </Button>
+    ),
+  };
+
   const id = product.id;
   const imageURL = product.image;
   const name = product.name;
@@ -22,20 +51,16 @@ const Product = ({ product, addToCart }) => {
           </Card.Text>
         </Card.Body>
       </Link>
-      <Button
-        className="addToCartBtn"
-        variant="light"
-        onClick={() => addToCart(product)}
-      >
-        Add to Cart
-      </Button>
+      {typeToButton[type]}
     </Card>
   );
 };
 
 Product.propTypes = {
   product: PropTypes.object,
-  addToCart: PropTypes.func,
+  handleOnClick: PropTypes.func,
+  type: PropTypes.string,
+  removeProduct: PropTypes.func,
 };
 
 export default Product;

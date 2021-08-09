@@ -14,6 +14,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProductDetail from "./components/ProductDetail";
+import { types } from "./components/Product";
 
 const App = () => {
   const saveCartInStorage = (cart) => {
@@ -80,7 +81,11 @@ const App = () => {
               <Container className="content min-vh-100">
                 <Switch>
                   <Route exact path="/">
-                    <ProductList addToCart={addToCart} />
+                    <ProductList
+                      url={"http://localhost/api/products/"}
+                      handleOnClick={addToCart}
+                      type={types.addToCart}
+                    />
                   </Route>
                   <Route path="/sign-in" component={SignIn} />
                   <Route path="/products-filter/">
@@ -94,7 +99,10 @@ const App = () => {
                     path="/profile"
                     renderFunc={() => <Profile />}
                   />
-                  <PrivateRoute path="/store" renderFunc={() => <Store />} />
+                  <PrivateRoute
+                    path="/store"
+                    renderFunc={() => <Store addToCart={addToCart} />}
+                  />
                   <PrivateRoute
                     path="/cart"
                     renderFunc={() => (

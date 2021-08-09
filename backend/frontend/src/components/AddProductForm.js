@@ -36,7 +36,6 @@ const AddProductForm = () => {
 
   return (
     <>
-      <h1>Add Product</h1>
       <Form id="add-product-form" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="productName">
           <Form.Label>Name</Form.Label>
@@ -64,7 +63,7 @@ const AddProductForm = () => {
         </Form.Group>
 
         <Button className="w-100" variant="light" type="submit">
-          Submit
+          Add Product
         </Button>
       </Form>
     </>
