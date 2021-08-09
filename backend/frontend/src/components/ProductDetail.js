@@ -5,8 +5,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import PropTypes from "prop-types";
 
-export default function ProductDetail() {
+export default function ProductDetail({ addToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState();
 
@@ -30,7 +31,11 @@ export default function ProductDetail() {
                 <h3 className="text-center">Name: {product.name}</h3>
                 <h3 className="text-center">Price: S${product.price}</h3>
               </div>
-              <Button variant="light" style={{ width: "100%" }}>
+              <Button
+                variant="light"
+                style={{ width: "100%" }}
+                onClick={() => addToCart(product)}
+              >
                 Add to Cart
               </Button>
             </Col>
@@ -40,3 +45,7 @@ export default function ProductDetail() {
     </>
   );
 }
+
+ProductDetail.propTypes = {
+  addToCart: PropTypes.func,
+};

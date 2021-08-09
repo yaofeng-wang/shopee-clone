@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import useFetch from "./useFetch";
 import useInfiniteScroll from "./useInfiniteScroll";
 
-const ProductList = () => {
+const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const { isLoading } = useFetch(
@@ -19,7 +19,7 @@ const ProductList = () => {
       {!isLoading ? (
         <div className="cards">
           {products.map((product, index) => (
-            <Product key={index} product={product} />
+            <Product key={index} product={product} addToCart={addToCart} />
           ))}
         </div>
       ) : (
@@ -31,7 +31,7 @@ const ProductList = () => {
 };
 
 ProductList.propTypes = {
-  products: PropTypes.array,
+  addToCart: PropTypes.func,
 };
 
 export default ProductList;

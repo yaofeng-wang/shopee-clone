@@ -3,16 +3,11 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-const Product = ({ product }) => {
+const Product = ({ product, addToCart }) => {
   const id = product.id;
   const imageURL = product.image;
   const name = product.name;
   const price = product.price;
-
-  const addToCart = (e) => {
-    e.stopPropagation();
-    console.log("add to card");
-  };
 
   return (
     <Card>
@@ -27,7 +22,11 @@ const Product = ({ product }) => {
           </Card.Text>
         </Card.Body>
       </Link>
-      <Button className="addToCartBtn" variant="light" onClick={addToCart}>
+      <Button
+        className="addToCartBtn"
+        variant="light"
+        onClick={() => addToCart(product)}
+      >
         Add to Cart
       </Button>
     </Card>
@@ -36,6 +35,7 @@ const Product = ({ product }) => {
 
 Product.propTypes = {
   product: PropTypes.object,
+  addToCart: PropTypes.func,
 };
 
 export default Product;
