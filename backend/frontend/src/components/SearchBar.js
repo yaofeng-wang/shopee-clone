@@ -19,8 +19,6 @@ export default function SearchBar() {
       className="d-flex"
       style={{
         width: "50%",
-        marginLeft: "4rem",
-        marginLight: "1rem",
       }}
     >
       <FormControl

@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export default function Cart({ cart, removeFromCart }) {
   const [displayedItems, setDisplayedItems] = useState([]);
@@ -12,16 +13,18 @@ export default function Cart({ cart, removeFromCart }) {
     for (const [k, v] of cart[Symbol.iterator]()) {
       const newItem = (
         <Row key={k} style={{ border: "1px solid black" }}>
-          <Col>
+          <Col sm={3}>
             <img
               variant="left"
               src={v[0].image}
               style={{ width: "100%" }}
             ></img>
-            <h3>Quantity: {v[1]}</h3>
           </Col>
           <Col>
-            {v[0].name}
+            <h3>Quantity: {v[1]}</h3>
+            <h3>{v[0].name}</h3>
+          </Col>
+          <Col>
             <Button
               variant="danger"
               style={{ width: "100%" }}
@@ -47,7 +50,14 @@ export default function Cart({ cart, removeFromCart }) {
           <h1>No item in cart :(</h1>
         </div>
       ) : (
-        <Container>{displayedItems}</Container>
+        <Container>
+          {displayedItems}
+          <Row>
+            <Link to="/checkout" className="btn btn-light ml-auto">
+              Checkout
+            </Link>
+          </Row>
+        </Container>
       )}
     </>
   );

@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-/* base styles */
+.header {
+  text-align: center;
+}
+
 * {
   margin: 0;
   font-family: "Quicksand";
@@ -11,13 +14,13 @@
   background-color: #e45821;
   color: #ffffff;
   min-height:100px;
+  margin-left: auto;
 }
 
 .navbar .title {
   color: #ffffff;
   font-size: 1.75em;
   font-weight: bold;
-  margin-left: 0px;
 }
 
 .navbar a {
@@ -39,7 +42,7 @@
    border: none;
 }
 
-.card a:hover {
+.card a {
   text-decoration: none;
 }
 

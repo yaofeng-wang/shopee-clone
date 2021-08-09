@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { useState } from "react";
 import ProductList from "./components/ProductList";
 import NavigationBar from "./components/NavigationBar";
