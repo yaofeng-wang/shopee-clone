@@ -2,7 +2,6 @@ import React from "react";
 import { useAuth } from "./AuthContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import AddProductForm from "./AddProductForm";
 
 export default function Profile() {
   const { user } = useAuth();
@@ -17,9 +16,6 @@ export default function Profile() {
         <div>
           <strong>Email</strong>: {user.email}{" "}
         </div>
-      </Row>
-      <Row className="d-flex flex-column">
-        <AddProductForm />
       </Row>
     </Container>
   );
