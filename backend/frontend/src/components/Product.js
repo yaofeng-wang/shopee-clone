@@ -42,14 +42,10 @@ const Product = ({ product, handleOnClick, type, removeProduct }) => {
     <Card>
       <Link to={`/products/${id}`}>
         <Card.Img variant="top" src={imageURL}></Card.Img>
-        <Card.Body>
+        <div>
           <Card.Title>{name}</Card.Title>
           <Card.Text>Price : S${price}</Card.Text>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card&apos;s content.
-          </Card.Text>
-        </Card.Body>
+        </div>
       </Link>
       {typeToButton[type]}
     </Card>
