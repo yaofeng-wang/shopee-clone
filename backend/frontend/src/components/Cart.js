@@ -10,6 +10,21 @@ export default function Cart({ cart, removeFromCart }) {
   const [displayedItems, setDisplayedItems] = useState([]);
   const { djangoUserId } = useAuth();
 
+  const getCookie = (name) => {
+    if (!document.cookie) {
+      return null;
+    }
+    const token = document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((c) => c.startsWith(name + "="));
+
+    if (token.length === 0) {
+      return null;
+    }
+    return decodeURIComponent(token[0].split("=")[1]);
+  };
+
   const handleCheckout = (cart) => {
     cart.forEach((value) => {
       const data = JSON.stringify({
@@ -17,9 +32,13 @@ export default function Cart({ cart, removeFromCart }) {
         product: value[0].id,
         buyer: djangoUserId,
       });
+      const csrftoken = getCookie("csrftoken");
       fetch("/api/transactions/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
+        },
         body: data,
       })
         .then(() => {
