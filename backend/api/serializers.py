@@ -12,7 +12,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'creation_datetime'] 
 
 
-class TransactionSerializer(serializers.ModelSerializer):
+class UserTransactionSerializer(serializers.ModelSerializer):
     seller_username = serializers.SerializerMethodField()
     product_name = serializers.SerializerMethodField()
     product_price = serializers.SerializerMethodField()
@@ -29,3 +29,8 @@ class TransactionSerializer(serializers.ModelSerializer):
     
     def get_product_price(self, instance):
         return instance.product.price
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = ['seller', 'buyer', 'product']

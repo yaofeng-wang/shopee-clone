@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Product, UserProfile, Transaction
 from rest_framework import generics
-from .serializers import ProductSerializer, UserProfileSerializer, TransactionSerializer
+from .serializers import ProductSerializer, UserProfileSerializer, TransactionSerializer, UserTransactionSerializer
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
@@ -52,9 +52,9 @@ class GetUserProducts(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class GetUserTransactions(viewsets.ModelViewSet):
+class UserTransactions(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
+    serializer_class = UserTransactionSerializer
     pagination_class = StandardResultsSetPagination
 
     def list(self, request, id, *args, **kwargs):

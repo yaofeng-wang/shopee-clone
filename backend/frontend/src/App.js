@@ -6,7 +6,6 @@ import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
 import Store from "./components/Store";
 import Cart from "./components/Cart";
-import Checkout from "./components/Checkout";
 import FilteredProductList from "./components/FilteredProductList";
 import { ProvideAuth } from "./components/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
@@ -108,10 +107,6 @@ const App = () => {
                     renderFunc={() => (
                       <Cart cart={cart} removeFromCart={removeFromCart} />
                     )}
-                  />
-                  <PrivateRoute
-                    path="/checkout"
-                    renderFunc={() => <Checkout />}
                   />
                 </Switch>
               </Container>

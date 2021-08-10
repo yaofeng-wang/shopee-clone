@@ -4,10 +4,32 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export default function Cart({ cart, removeFromCart }) {
   const [displayedItems, setDisplayedItems] = useState([]);
+  const { djangoUserId } = useAuth();
+
+  const handleCheckout = (cart) => {
+    cart.forEach((value) => {
+      const data = JSON.stringify({
+        seller: value[0].seller,
+        product: value[0].id,
+        buyer: djangoUserId,
+      });
+      fetch("http://localhost/api/transactions/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: data,
+      })
+        .then(() => {
+          removeFromCart(value[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  };
 
   useEffect(() => {
     for (const [k, v] of cart[Symbol.iterator]()) {
@@ -70,9 +92,12 @@ export default function Cart({ cart, removeFromCart }) {
         <Container>
           {displayedItems}
           <Row>
-            <Link to="/checkout" className="btn btn-light ml-auto">
+            <Button
+              onClick={() => handleCheckout(cart)}
+              className="btn btn-light"
+            >
               Checkout
-            </Link>
+            </Button>
           </Row>
         </Container>
       )}

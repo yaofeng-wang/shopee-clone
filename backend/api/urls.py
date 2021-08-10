@@ -1,4 +1,4 @@
-from .views import ProductViewSet, UserProfileViewSet, ProductSearchListView, GetUserId, GetUserProducts, TransactionViewSet, GetUserTransactions
+from .views import ProductViewSet, UserProfileViewSet, ProductSearchListView, GetUserId, GetUserProducts, TransactionViewSet, UserTransactions
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
@@ -11,5 +11,5 @@ urlpatterns += [
     path('products-filter/', ProductSearchListView.as_view()),
     path('user-id/', GetUserId.as_view()),
     path('user-products/<int:id>/', GetUserProducts.as_view({'get': 'list'})),
-    path('user-transactions/<int:id>/', GetUserTransactions.as_view({'get': 'list'})),
+    path('user-transactions/<int:id>/', UserTransactions.as_view({'get': 'list'})),
 ]
