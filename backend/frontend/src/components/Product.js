@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { useAuth } from "./AuthContext";
 
 export const types = {
   addToCart: "addToCart",
@@ -9,11 +10,14 @@ export const types = {
 };
 
 const Product = ({ product, handleOnClick, type, removeProduct }) => {
+  const { djangoUserId } = useAuth();
+
   const typeToButton = {
     [types.addToCart]: (
       <Button
         onClick={() => handleOnClick(product)}
         className="addToCartBtn"
+        disabled={djangoUserId === product.seller}
         variant="light"
       >
         Add To Cart
