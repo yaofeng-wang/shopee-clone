@@ -1,6 +1,14 @@
 from django.contrib import admin
-from .models import Product, UserProfile
+from .models import Product, UserProfile, Transaction
 
-admin.site.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    readonly_fields = ('creation_datetime',)
+admin.site.register(Product, ProductAdmin)
 
-admin.site.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    readonly_fields = ('creation_datetime',)
+admin.site.register(UserProfile, UserProfileAdmin)
+
+class TransactionAdmin(admin.ModelAdmin):
+    readonly_fields = ('creation_datetime',)
+admin.site.register(Transaction, TransactionAdmin)
