@@ -4,7 +4,7 @@ from .settings_common import *
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
