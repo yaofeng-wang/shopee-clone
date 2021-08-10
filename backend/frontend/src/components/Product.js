@@ -46,7 +46,7 @@ const Product = ({ product, handleOnClick, type, removeProduct }) => {
     <Card>
       <Link to={`/products/${id}`}>
         <Card.Img variant="top" src={imageURL}></Card.Img>
-        <div>
+        <div style={{ flex: "1 1 auto", padding: "1rem", height: "5rem" }}>
           <Card.Title>{name}</Card.Title>
           <Card.Text>Price : S${price}</Card.Text>
         </div>
