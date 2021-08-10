@@ -11,10 +11,10 @@ export default function Profile() {
   return (
     <Container className="py-3">
       <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
-        <Tab eventKey="account" title="Account">
+        <Tab eventKey="account" title="Account Information">
           <Account />
         </Tab>
-        <Tab eventKey="transactions" title="Transactions">
+        <Tab eventKey="transactions" title="Past Transactions">
           <TransactionList />
         </Tab>
       </Tabs>
