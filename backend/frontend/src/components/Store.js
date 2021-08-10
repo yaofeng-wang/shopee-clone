@@ -51,7 +51,7 @@ export default function Store() {
       <Row className="d-flex flex-column">
         <AddProductForm addProduct={addProduct} />
       </Row>
-      <Row>
+      <Row style={{ marginTop: "10rem" }}>
         <ProductList
           products={products}
           isLoading={isLoading}

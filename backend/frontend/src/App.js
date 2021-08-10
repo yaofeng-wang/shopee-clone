@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import ProductList from "./components/ProductList";
+import React, { useState } from "react";
 import NavigationBar from "./components/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./components/SignIn";
@@ -13,23 +12,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProductDetail from "./components/ProductDetail";
-import { types } from "./components/Product";
-import useFetch from "./components/useFetch";
-import useInfiniteScroll from "./components/useInfiniteScroll";
+import Home from "./components/Home";
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const { isLoading } = useFetch(
-    `http://localhost/api/products/?page=${pageNumber}`,
-    setProducts
-  );
-  const bottomBoundaryRef = useRef(null);
-  const bottomBoundaryElement = (
-    <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
-  );
-  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
-
   const saveCartInStorage = (cart) => {
     const toBeStored = [];
     for (const [, v] of cart.entries()) {
@@ -94,13 +79,7 @@ const App = () => {
               <Container className="content min-vh-100">
                 <Switch>
                   <Route exact path="/">
-                    <ProductList
-                      products={products}
-                      handleOnClick={addToCart}
-                      type={types.addToCart}
-                      isLoading={isLoading}
-                      bottomBoundaryElement={bottomBoundaryElement}
-                    />
+                    <Home addToCart={addToCart} />
                   </Route>
                   <Route path="/sign-in" component={SignIn} />
                   <Route path="/products-filter/">
