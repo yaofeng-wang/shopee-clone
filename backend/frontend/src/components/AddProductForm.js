@@ -2,8 +2,9 @@ import { useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
+import PropTypes from "prop-types";
 
-const AddProductForm = () => {
+const AddProductForm = ({ addProduct }) => {
   const nameRef = useRef();
   const priceRef = useRef();
   const imageRef = useRef();
@@ -26,7 +27,8 @@ const AddProductForm = () => {
       body: data,
     })
       .then((response) => response.json())
-      .then(() => {
+      .then((data) => {
+        addProduct(data);
         document.getElementById("add-product-form").reset();
       })
       .catch((error) => {
@@ -68,6 +70,10 @@ const AddProductForm = () => {
       </Form>
     </>
   );
+};
+
+AddProductForm.propTypes = {
+  addProduct: PropTypes.func,
 };
 
 export default AddProductForm;

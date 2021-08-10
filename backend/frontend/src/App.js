@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ProductList from "./components/ProductList";
 import NavigationBar from "./components/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -14,8 +14,22 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProductDetail from "./components/ProductDetail";
 import { types } from "./components/Product";
+import useFetch from "./components/useFetch";
+import useInfiniteScroll from "./components/useInfiniteScroll";
 
 const App = () => {
+  const [products, setProducts] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const { isLoading } = useFetch(
+    `http://localhost/api/products/?page=${pageNumber}`,
+    setProducts
+  );
+  const bottomBoundaryRef = useRef(null);
+  const bottomBoundaryElement = (
+    <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
+  );
+  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
+
   const saveCartInStorage = (cart) => {
     const toBeStored = [];
     for (const [, v] of cart.entries()) {
@@ -81,9 +95,11 @@ const App = () => {
                 <Switch>
                   <Route exact path="/">
                     <ProductList
-                      url={"http://localhost/api/products/"}
+                      products={products}
                       handleOnClick={addToCart}
                       type={types.addToCart}
+                      isLoading={isLoading}
+                      bottomBoundaryElement={bottomBoundaryElement}
                     />
                   </Route>
                   <Route path="/sign-in" component={SignIn} />

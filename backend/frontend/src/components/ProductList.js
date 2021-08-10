@@ -1,27 +1,18 @@
-import { useState, useRef } from "react";
 import Product from "./Product";
 import PropTypes from "prop-types";
-import useFetch from "./useFetch";
-import useInfiniteScroll from "./useInfiniteScroll";
 
-const ProductList = ({ url, handleOnClick, type }) => {
-  const [products, setProducts] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const { isLoading } = useFetch(`${url}?page=${pageNumber}`, setProducts);
-  const bottomBoundaryRef = useRef(null);
-  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
-  const removeProduct = (product) => {
-    setProducts((prevProducts) => {
-      const newProducts = [...prevProducts];
-      return newProducts.filter((p) => {
-        return p.id !== product.id;
-      });
-    });
-  };
-
+const ProductList = ({
+  products,
+  handleOnClick,
+  type,
+  isLoading,
+  bottomBoundaryElement,
+}) => {
   return (
     <>
-      {!isLoading ? (
+      {isLoading ? (
+        <div>Loading</div>
+      ) : (
         <div className="cards">
           {products.map((product, index) => (
             <Product
@@ -29,22 +20,21 @@ const ProductList = ({ url, handleOnClick, type }) => {
               product={product}
               handleOnClick={handleOnClick}
               type={type}
-              removeProduct={removeProduct}
             />
           ))}
         </div>
-      ) : (
-        <div>Loading</div>
       )}
-      <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
+      {bottomBoundaryElement}
     </>
   );
 };
 
 ProductList.propTypes = {
+  products: PropTypes.array,
   handleOnClick: PropTypes.func,
-  url: PropTypes.string,
+  isLoading: PropTypes.bool,
   type: PropTypes.string,
+  bottomBoundaryElement: PropTypes.object,
 };
 
 export default ProductList;

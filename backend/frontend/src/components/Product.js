@@ -9,7 +9,7 @@ export const types = {
   deleteProduct: "deleteProduct",
 };
 
-const Product = ({ product, handleOnClick, type, removeProduct }) => {
+const Product = ({ product, handleOnClick, type }) => {
   const { djangoUserId } = useAuth();
 
   const typeToButton = {
@@ -25,10 +25,7 @@ const Product = ({ product, handleOnClick, type, removeProduct }) => {
     ),
     [types.deleteProduct]: (
       <Button
-        onClick={() => {
-          handleOnClick(product);
-          removeProduct(product);
-        }}
+        onClick={() => handleOnClick(product)}
         className="deleteProductBtn"
         variant="danger"
       >
@@ -60,7 +57,6 @@ Product.propTypes = {
   product: PropTypes.object,
   handleOnClick: PropTypes.func,
   type: PropTypes.string,
-  removeProduct: PropTypes.func,
 };
 
 export default Product;
