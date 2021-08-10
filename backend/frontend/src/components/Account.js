@@ -11,7 +11,7 @@ const Account = () => {
     <Container>
       <Row>
         <Col sm={3}>
-          <strong>Display name</strong>:
+          <strong>Username</strong>:
         </Col>
         <Col>{user.displayName}</Col>
       </Row>

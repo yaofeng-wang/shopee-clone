@@ -25,16 +25,16 @@ export default function TransactionList() {
     <Container>
       <Row>
         <Col>
-          <strong>Seller username</strong>
+          <strong>Seller Username</strong>
         </Col>
         <Col>
-          <strong>Product name</strong>
+          <strong>Product Name</strong>
         </Col>
         <Col>
-          <strong>Product price</strong>
+          <strong>Product Price</strong>
         </Col>
         <Col>
-          <strong>Transaction datetime</strong>
+          <strong>Transaction Datetime</strong>
         </Col>
       </Row>
       {transactions.map((transaction, index) => (
