@@ -34,12 +34,12 @@
   margin: 0 auto;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
 }
 
 .card {
    flex: 0 1 calc(25% - 1em);
    border: none;
+   margin: 0.3rem;
 }
 
 .card a {
