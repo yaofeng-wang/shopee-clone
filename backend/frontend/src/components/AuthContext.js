@@ -57,16 +57,36 @@ function useProvideAuth() {
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
   );
 
+  const getCookie = (name) => {
+    if (!document.cookie) {
+      return null;
+    }
+    const token = document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((c) => c.startsWith(name + "="));
+
+    if (token.length === 0) {
+      return null;
+    }
+    return decodeURIComponent(token[0].split("=")[1]);
+  };
+
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
-        let data = new FormData();
-        data.append("email", user.email);
-        data.append("username", user.displayName);
+        const csrftoken = getCookie("csrftoken");
         await fetch("/api/user-id/", {
           method: "POST",
-          body: data,
+          body: JSON.stringify({
+            username: user.displayName,
+            email: user.email,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken,
+          },
         })
           .then((response) => response.json())
           .then((data) => {
