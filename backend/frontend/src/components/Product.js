@@ -1,35 +1,62 @@
 import { Card } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { useAuth } from "./AuthContext";
 
-const Product = ({ product }) => {
+export const types = {
+  addToCart: "addToCart",
+  deleteProduct: "deleteProduct",
+};
+
+const Product = ({ product, handleOnClick, type }) => {
+  const { djangoUserId } = useAuth();
+
+  const typeToButton = {
+    [types.addToCart]: (
+      <Button
+        onClick={() => handleOnClick(product)}
+        className="addToCartBtn"
+        disabled={djangoUserId === product.seller}
+        variant="light"
+      >
+        Add To Cart
+      </Button>
+    ),
+    [types.deleteProduct]: (
+      <Button
+        onClick={() => handleOnClick(product)}
+        className="deleteProductBtn"
+        variant="danger"
+      >
+        Delete Product
+      </Button>
+    ),
+  };
+
   const id = product.id;
   const imageURL = product.image;
   const name = product.name;
   const price = product.price;
 
   return (
-    <Link
-      to={`/products/${id}`}
-      style={{ flex: "1 0 21%", textDecoration: "none", height: "300px" }}
-    >
-      <Card>
+    <Card>
+      <Link to={`/products/${id}`}>
         <Card.Img variant="top" src={imageURL}></Card.Img>
-        <Card.Body>
+        <div style={{ flex: "1 1 auto", padding: "1rem", height: "5rem" }}>
           <Card.Title>{name}</Card.Title>
           <Card.Text>Price : S${price}</Card.Text>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card&apos;s content.
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Link>
+        </div>
+      </Link>
+      {typeToButton[type]}
+    </Card>
   );
 };
 
 Product.propTypes = {
   product: PropTypes.object,
+  handleOnClick: PropTypes.func,
+  type: PropTypes.string,
 };
 
 export default Product;

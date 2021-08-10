@@ -34,6 +34,7 @@ export function ProvideAuth({ children }) {
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const history = useHistory();
+  const [djangoUserId, setDjangoUserId] = useState(null);
 
   const uiConfig = {
     signInFlow: "popup",
@@ -57,12 +58,27 @@ function useProvideAuth() {
   );
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
+        let data = new FormData();
+        data.append("email", user.email);
+        data.append("username", user.displayName);
+        await fetch("api/user-id/", {
+          method: "POST",
+          body: data,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setDjangoUserId(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         history.push("/");
       } else {
         setUser(false);
+        setDjangoUserId(null);
       }
     });
 
@@ -73,6 +89,7 @@ function useProvideAuth() {
     user,
     signout,
     signInButton,
+    djangoUserId,
   };
 }
 

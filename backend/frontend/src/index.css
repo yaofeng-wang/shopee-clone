@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-/* base styles */
+.header {
+  text-align: center;
+}
+
 * {
   margin: 0;
   font-family: "Quicksand";
@@ -8,31 +11,43 @@
 }
 
 .navbar {
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto auto 50px auto;
-  border: 2px solid #f2f2f2;
+  background-color: #e45821;
+  color: #ffffff;
+  min-height:100px;
+  margin-left: auto;
 }
 
 .navbar .title {
-  color: #e45821;
+  color: #ffffff;
   font-size: 1.75em;
   font-weight: bold;
-  margin-left: 0px;
 }
 
 .navbar a {
+  color: #ffffff !important;
   margin-left: 16px;
-  text-decoration: none;
+  text-decoration: none !important;
   padding: 6px;
 }
 
-.product-list {
-  max-width: 1200px;
+.cards {
   margin: 0 auto;
-  border: 2px solid #f2f2f2;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.card {
+   flex: 0 1 calc(25% - 1em);
+   border: none;
+   margin: 0.5rem;
+}
+
+.card a {
+  text-decoration: none;
+}
+
+.card:hover {
+  border: 1px solid #000000;
 }
 
 .sign-in-box {
@@ -43,6 +58,25 @@
   max-width: 500px;
 }
 
-.profile {
-  border: 2px solid #f2f2f2;
+.body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #f2f2f2;
+}
+
+.content {
+  background-color: #ffffff;
+}
+
+.addToCartBtn:hover {
+  background-color: #e45821 !important;
+  color: #ffffff !important;
+}
+
+.card-body {
+  height: 15rem !important;
+}
+
+body, div#root, div.body {
+  min-height: 100%;
 }
