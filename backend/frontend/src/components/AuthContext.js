@@ -63,7 +63,7 @@ function useProvideAuth() {
         setUser(user);
         let data = new FormData();
         data.append("email", user.email);
-        data.append("username", user.username);
+        data.append("username", user.displayName);
         await fetch("http://localhost/api/user-id/", {
           method: "POST",
           body: data,

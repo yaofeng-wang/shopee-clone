@@ -40,18 +40,32 @@ class GetUserProducts(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     pagination_class = StandardResultsSetPagination
 
-    def get(self, request, id, format=None):
+    def list(self, request, id, *args, **kwargs):
         products = self.get_queryset().filter(seller=id)
-        serializer = ProductSerializer(products, many=True)
+        
+        page = self.paginate_queryset(products)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
 
 class GetUserTransactions(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+    pagination_class = StandardResultsSetPagination
 
-    def get(self, request, id, format=None):
+    def list(self, request, id, *args, **kwargs):
         transactions = self.get_queryset().filter(buyer=id)
-        serializer = TransactionSerializer(transactions, many=True)
+
+        page = self.paginate_queryset(transactions)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
 class TransactionViewSet(viewsets.ModelViewSet):
