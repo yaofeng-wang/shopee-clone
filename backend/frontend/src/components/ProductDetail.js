@@ -6,10 +6,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
-
+import { useAuth } from "./AuthContext";
 export default function ProductDetail({ addToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState();
+  const { djangoUserId } = useAuth();
 
   const { isLoading } = useFetch(
     `http://localhost/api/products/${id}`,
@@ -34,6 +35,7 @@ export default function ProductDetail({ addToCart }) {
               <Button
                 variant="light"
                 style={{ width: "100%" }}
+                disabled={djangoUserId === product.seller}
                 onClick={() => addToCart(product)}
               >
                 Add to Cart
