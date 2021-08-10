@@ -39,7 +39,7 @@
 .card {
    flex: 0 1 calc(25% - 1em);
    border: none;
-   margin: 0.3rem;
+   margin: 0.5rem;
 }
 
 .card a {
