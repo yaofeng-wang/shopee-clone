@@ -25,6 +25,7 @@ class ProductSearchListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [filters.SearchFilter]
+    pagination_class = StandardResultsSetPagination
     search_fields = ['name']
 
 class GetUserId(APIView):

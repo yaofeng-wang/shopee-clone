@@ -5,7 +5,7 @@ import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
 import Store from "./components/Store";
 import Cart from "./components/Cart";
-import FilteredProductList from "./components/FilteredProductList";
+import SearchResults from "./components/SearchResults";
 import { ProvideAuth } from "./components/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Container from "react-bootstrap/Container";
@@ -83,7 +83,7 @@ const App = () => {
                   </Route>
                   <Route path="/sign-in" component={SignIn} />
                   <Route path="/products-filter/">
-                    <FilteredProductList addToCart={addToCart} />
+                    <SearchResults addToCart={addToCart} />
                   </Route>
                   <Route
                     path="/products/:id"
