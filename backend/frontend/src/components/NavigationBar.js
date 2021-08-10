@@ -21,7 +21,7 @@ const NavigationBar = ({ cart }) => {
           <>
             <Link to="/profile">Profile</Link>
             <Link to="/cart">My Cart</Link>
-            <Badge pill bg="primary">
+            <Badge pill bg="light" text="dark">
               {cart.size}
             </Badge>
             <Link to="/store">My Store</Link>
