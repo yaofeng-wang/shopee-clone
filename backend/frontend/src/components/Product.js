@@ -50,7 +50,11 @@ const Product = ({ product, handleOnClick, type }) => {
   return (
     <Card className="sc-card">
       <Link to={`/products/${id}`}>
-        <Card.Img variant="top" src={imageURL}></Card.Img>
+        <Card.Img
+          className="sc-card-image"
+          variant="top"
+          src={imageURL}
+        ></Card.Img>
         <div className="sc-card-body">
           <Card.Title>{name}</Card.Title>
           <Card.Text>Price : S${price}</Card.Text>

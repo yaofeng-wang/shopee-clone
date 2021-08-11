@@ -15,36 +15,45 @@ const ProductDetail = () => {
   const [product, setProduct] = useState();
   const { djangoUserId, user } = useAuth();
   const history = useHistory();
-  useFetch(`http://localhost/api/products/${id}`, (data) => setProduct(data));
+  const { isLoading } = useFetch(
+    `http://localhost/api/products/${id}`,
+    (data) => setProduct(data)
+  );
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <img style={{ width: "100%" }} src={product.image}></img>
-        </Col>
-        <Col>
-          <div>
-            <h3 className="text-center">Name: {product.name}</h3>
-            <h3 className="text-center">Price: S${product.price}</h3>
-          </div>
-          <Button
-            variant="light"
-            style={{ width: "100%" }}
-            disabled={djangoUserId === product.seller}
-            onClick={() => {
-              if (!user) {
-                history.push("/sign-in");
-                return;
-              }
-              addToCart(product);
-            }}
-          >
-            Add to Cart
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      {isLoading ? (
+        <div>Loading</div>
+      ) : (
+        <Container>
+          <Row>
+            <Col>
+              <img style={{ width: "100%" }} src={product.image}></img>
+            </Col>
+            <Col>
+              <div>
+                <h3 className="text-center">Name: {product.name}</h3>
+                <h3 className="text-center">Price: S${product.price}</h3>
+              </div>
+              <Button
+                variant="light"
+                style={{ width: "100%" }}
+                disabled={djangoUserId === product.seller}
+                onClick={() => {
+                  if (!user) {
+                    history.push("/sign-in");
+                    return;
+                  }
+                  addToCart(product);
+                }}
+              >
+                Add to Cart
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </>
   );
 };
 

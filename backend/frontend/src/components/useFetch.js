@@ -5,12 +5,12 @@ const useFetch = (url, successCallback) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasNextPage, setHasNextPage] = useState(false);
 
-  useEffect(() => {
+  useEffect(async () => {
     const abortCont = new AbortController();
 
     setIsLoading(true);
     setHasNextPage(false);
-    fetch(url, { signal: abortCont.signal })
+    await fetch(url, { signal: abortCont.signal })
       .then((res) => {
         if (!res.ok) {
           throw Error("could not fetch the data for that resource");
