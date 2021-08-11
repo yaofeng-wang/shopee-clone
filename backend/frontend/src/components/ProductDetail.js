@@ -22,7 +22,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || !product ? (
         <div>Loading</div>
       ) : (
         <Container>
