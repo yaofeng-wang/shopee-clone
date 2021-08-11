@@ -15,9 +15,8 @@ const ProductDetail = () => {
   const [product, setProduct] = useState();
   const { djangoUserId, user } = useAuth();
   const history = useHistory();
-  const { isLoading } = useFetch(
-    `http://localhost/api/products/${id}`,
-    (data) => setProduct(data)
+  const { isLoading } = useFetch(`/api/products/${id}`, (data) =>
+    setProduct(data)
   );
 
   return (
