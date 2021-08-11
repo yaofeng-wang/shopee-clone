@@ -16,7 +16,7 @@ const Product = ({ product, handleOnClick, type }) => {
     [types.addToCart]: (
       <Button
         onClick={() => handleOnClick(product)}
-        className="addToCartBtn"
+        className="sc-addToCartBtn"
         disabled={djangoUserId === product.seller}
         variant="light"
       >
@@ -40,10 +40,10 @@ const Product = ({ product, handleOnClick, type }) => {
   const price = product.price;
 
   return (
-    <Card>
+    <Card className="sc-card">
       <Link to={`/products/${id}`}>
         <Card.Img variant="top" src={imageURL}></Card.Img>
-        <div style={{ flex: "1 1 auto", padding: "1rem", height: "5rem" }}>
+        <div className="sc-card-body">
           <Card.Title>{name}</Card.Title>
           <Card.Text>Price : S${price}</Card.Text>
         </div>

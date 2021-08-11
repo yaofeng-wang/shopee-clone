@@ -18,7 +18,7 @@ export default function FilteredProductList() {
   return (
     <>
       {!isLoading ? (
-        <div className="cards">
+        <div className="cards sc-cards">
           {products.map((product, index) => (
             <Product key={index} product={product} />
           ))}

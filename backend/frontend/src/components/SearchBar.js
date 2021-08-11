@@ -14,13 +14,7 @@ export default function SearchBar() {
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      className="d-flex"
-      style={{
-        width: "50%",
-      }}
-    >
+    <Form onSubmit={handleSubmit} className="d-flex">
       <FormControl
         type="search"
         value={searchQuery}

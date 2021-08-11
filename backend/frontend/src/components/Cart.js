@@ -82,7 +82,7 @@ export default function Cart({ cart, removeFromCart }) {
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
-            height: "100vh",
+            height: "85vh",
             flexDirection: "column",
           }}
         >

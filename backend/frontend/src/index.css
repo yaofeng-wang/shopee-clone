@@ -1,56 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-.header {
-  text-align: center;
-}
-
 * {
   margin: 0;
   font-family: "Quicksand";
   color: #333;
 }
 
-.navbar {
-  background-color: #e45821;
-  color: #ffffff;
-  min-height:100px;
-  margin-left: auto;
+body, div#root, div.sc-body {
+  min-height: 100%;
 }
 
-.navbar .title {
+.sc-body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #f2f2f2;
+}
+
+.sc-content {
+  background-color: #ffffff;
+  min-height: 85vh;
+}
+
+.sc-navbar {
+  background-color: #e45821;
+  color: #ffffff;
+  min-height: 6.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.sc-navbar .title {
   color: #ffffff;
   font-size: 1.75em;
   font-weight: bold;
 }
 
-.navbar a {
+.sc-navbar a {
   color: #ffffff !important;
   margin-left: 16px;
   text-decoration: none !important;
   padding: 6px;
 }
 
-.cards {
+.sc-cards {
   margin: 0 auto;
   display: flex;
   flex-flow: row wrap;
 }
 
-.card {
+.sc-card {
    flex: 0 1 calc(25% - 1em);
    border: none;
    margin: 0.5rem;
 }
 
-.card a {
+.sc-card a {
   text-decoration: none;
 }
 
-.card:hover {
+.sc-card:hover {
   border: 1px solid #000000;
 }
 
-.sign-in-box {
+.sc-sign-in-box {
   margin: auto auto 50px auto;
   display: flex;
   justify-content: center;
@@ -58,25 +72,14 @@
   max-width: 500px;
 }
 
-.body {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  background-color: #f2f2f2;
-}
-
-.content {
-  background-color: #ffffff;
-}
-
-.addToCartBtn:hover {
+.sc-addToCartBtn:hover {
   background-color: #e45821 !important;
   color: #ffffff !important;
 }
 
-.card-body {
-  height: 15rem !important;
+.sc-card-body {
+  flex: "1 1 auto";
+  padding: "1rem";
+  height: "5rem";
 }
 
-body, div#root, div.body {
-  min-height: 100%;
-}

@@ -9,7 +9,7 @@ export default function SignIn() {
       {user ? (
         <Redirect to="/sign-in" />
       ) : (
-        <div className="sign-in-box">{signInButton}</div>
+        <div className="sc-sign-in-box">{signInButton}</div>
       )}
     </>
   );
