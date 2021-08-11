@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
+import { useHistory } from "react-router-dom";
 
 export const types = {
   addToCart: "addToCart",
@@ -10,12 +11,19 @@ export const types = {
 };
 
 const Product = ({ product, handleOnClick, type }) => {
-  const { djangoUserId } = useAuth();
+  const { djangoUserId, user } = useAuth();
+  const history = useHistory();
 
   const typeToButton = {
     [types.addToCart]: (
       <Button
-        onClick={() => handleOnClick(product)}
+        onClick={() => {
+          if (!user) {
+            history.push("/sign-in");
+            return;
+          }
+          handleOnClick(product);
+        }}
         className="sc-addToCartBtn"
         disabled={djangoUserId === product.seller}
         variant="light"
