@@ -8,26 +8,24 @@ import PropTypes from "prop-types";
 const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const { isLoading } = useFetch(
+  const { isLoading, hasNextPage } = useFetch(
     `/api/products/?page=${pageNumber}`,
-    setProducts
+    (data) => setProducts((prevProducts) => [...prevProducts, ...data.results])
   );
   const bottomBoundaryRef = useRef(null);
   const bottomBoundaryElement = (
     <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
   );
-  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
+  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading, hasNextPage);
 
   return (
-    <div>
-      <ProductList
-        products={products}
-        handleOnClick={addToCart}
-        type={types.addToCart}
-        isLoading={isLoading}
-        bottomBoundaryElement={bottomBoundaryElement}
-      />
-    </div>
+    <ProductList
+      products={products}
+      handleOnClick={addToCart}
+      type={types.addToCart}
+      isLoading={isLoading}
+      bottomBoundaryElement={bottomBoundaryElement}
+    />
   );
 };
 

@@ -1,27 +1,30 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
-export default function useInfiniteScroll(scrollRef, setPage, isLoading) {
-  const scrollObserver = useCallback(
-    (node) => {
-      if (!node || isLoading) {
-        return;
-      }
-      new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.intersectionRatio > 0) {
-            setPage((prevPage) => {
-              return prevPage + 1;
-            });
-          }
-        });
-      }).observe(node);
-    },
-    [setPage, isLoading]
-  );
-
+export default function useInfiniteScroll(
+  scrollRef,
+  setPage,
+  isLoading,
+  hasNextPage
+) {
   useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.intersectionRatio > 0 && !isLoading && hasNextPage) {
+          setPage((prevPage) => {
+            return prevPage + 1;
+          });
+        }
+      });
+    });
+
     if (scrollRef?.current) {
-      scrollObserver(scrollRef.current);
+      observer.observe(scrollRef.current);
     }
-  }, [scrollObserver, scrollRef]);
+
+    return () => {
+      if (scrollRef?.current) {
+        observer.unobserve(scrollRef.current);
+      }
+    };
+  }, [scrollRef, setPage, isLoading, hasNextPage]);
 }

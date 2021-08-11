@@ -4,6 +4,7 @@ import "firebase/auth";
 import PropTypes from "prop-types";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useHistory } from "react-router-dom";
+import fetchData from "./fetchData";
 
 const authContext = createContext();
 
@@ -57,44 +58,17 @@ function useProvideAuth() {
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
   );
 
-  const getCookie = (name) => {
-    if (!document.cookie) {
-      return null;
-    }
-    const token = document.cookie
-      .split(";")
-      .map((c) => c.trim())
-      .filter((c) => c.startsWith(name + "="));
-
-    if (token.length === 0) {
-      return null;
-    }
-    return decodeURIComponent(token[0].split("=")[1]);
-  };
-
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
-        const csrftoken = getCookie("csrftoken");
-        await fetch("/api/user-id/", {
-          method: "POST",
-          body: JSON.stringify({
-            username: user.displayName,
-            email: user.email,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrftoken,
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            setDjangoUserId(data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        fetchData(
+          "/api/user-id/",
+          "POST",
+          (data) => setDjangoUserId(data),
+          JSON.stringify({ username: user.displayName, email: user.email }),
+          { "Content-Type": "application/json" }
+        );
         history.push("/");
       } else {
         setUser(false);

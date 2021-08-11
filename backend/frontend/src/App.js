@@ -73,10 +73,10 @@ const App = () => {
     <Router>
       <ProvideAuth>
         <NavigationBar cart={cart} />
-        <Container fluid className="body">
+        <Container fluid className="sc-body">
           <Row>
             <Col>
-              <Container className="content min-vh-100">
+              <Container className="sc-content">
                 <Switch>
                   <Route exact path="/">
                     <Home addToCart={addToCart} />

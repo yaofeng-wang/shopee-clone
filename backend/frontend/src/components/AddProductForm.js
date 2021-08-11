@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
 import PropTypes from "prop-types";
+import fetchData from "./fetchData";
 
 const AddProductForm = ({ addProduct }) => {
   const nameRef = useRef();
@@ -10,24 +11,8 @@ const AddProductForm = ({ addProduct }) => {
   const imageRef = useRef();
   const { djangoUserId } = useAuth();
 
-  const getCookie = (name) => {
-    if (!document.cookie) {
-      return null;
-    }
-    const token = document.cookie
-      .split(";")
-      .map((c) => c.trim())
-      .filter((c) => c.startsWith(name + "="));
-
-    if (token.length === 0) {
-      return null;
-    }
-    return decodeURIComponent(token[0].split("=")[1]);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const csrftoken = getCookie("csrftoken");
     let data = new FormData();
     data.append("seller", djangoUserId);
     data.append("name", nameRef.current.value);
@@ -38,21 +23,15 @@ const AddProductForm = ({ addProduct }) => {
       imageRef.current.files[0].name
     );
 
-    await fetch("/api/products/", {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": csrftoken,
-      },
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    fetchData(
+      "/api/products/",
+      "POST",
+      (data) => {
         addProduct(data);
         document.getElementById("add-product-form").reset();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      },
+      data
+    );
   };
 
   return (

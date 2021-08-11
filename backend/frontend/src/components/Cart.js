@@ -5,48 +5,28 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
+import fetchData from "./fetchData";
 
 export default function Cart({ cart, removeFromCart }) {
   const [displayedItems, setDisplayedItems] = useState([]);
   const { djangoUserId } = useAuth();
 
-  const getCookie = (name) => {
-    if (!document.cookie) {
-      return null;
-    }
-    const token = document.cookie
-      .split(";")
-      .map((c) => c.trim())
-      .filter((c) => c.startsWith(name + "="));
-
-    if (token.length === 0) {
-      return null;
-    }
-    return decodeURIComponent(token[0].split("=")[1]);
-  };
-
   const handleCheckout = (cart) => {
     cart.forEach((value) => {
-      const data = JSON.stringify({
-        seller: value[0].seller,
-        product: value[0].id,
-        buyer: djangoUserId,
-      });
-      const csrftoken = getCookie("csrftoken");
-      fetch("/api/transactions/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrftoken,
-        },
-        body: data,
-      })
-        .then(() => {
-          removeFromCart(value[0]);
-        })
-        .catch((err) => {
-          console.log(err);
+      for (let i = 0; i < value[1]; i++) {
+        const data = JSON.stringify({
+          seller: value[0].seller,
+          product: value[0].id,
+          buyer: djangoUserId,
         });
+        fetchData(
+          "/api/transactions/",
+          "POST",
+          () => removeFromCart(value[0]),
+          data,
+          { "Content-Type": "application/json" }
+        );
+      }
     });
   };
 
@@ -101,7 +81,7 @@ export default function Cart({ cart, removeFromCart }) {
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
-            height: "100vh",
+            height: "85vh",
             flexDirection: "column",
           }}
         >

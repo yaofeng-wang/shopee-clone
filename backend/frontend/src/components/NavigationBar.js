@@ -8,10 +8,7 @@ const NavigationBar = ({ cart }) => {
   const { user, signout } = useAuth();
 
   return (
-    <nav
-      className="navbar"
-      style={{ flexFlow: "row nowrap", whiteSpace: "nowrap" }}
-    >
+    <div className="sc-navbar">
       <Link className="title" to="/">
         Shopee Clone
       </Link>
@@ -33,7 +30,7 @@ const NavigationBar = ({ cart }) => {
           <Link to="/sign-in">Sign in</Link>
         )}
       </div>
-    </nav>
+    </div>
   );
 };
 

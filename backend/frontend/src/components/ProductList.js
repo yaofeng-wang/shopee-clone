@@ -5,25 +5,21 @@ const ProductList = ({
   products,
   handleOnClick,
   type,
-  isLoading,
   bottomBoundaryElement,
 }) => {
   return (
     <>
-      {isLoading ? (
-        <div>Loading</div>
-      ) : (
-        <div className="cards">
-          {products.map((product, index) => (
-            <Product
-              key={index}
-              product={product}
-              handleOnClick={handleOnClick}
-              type={type}
-            />
-          ))}
-        </div>
-      )}
+      <div className="cards sc-cards">
+        {products.map((product, index) => (
+          <Product
+            key={index}
+            product={product}
+            handleOnClick={handleOnClick}
+            type={type}
+          />
+        ))}
+      </div>
+
       {bottomBoundaryElement}
     </>
   );

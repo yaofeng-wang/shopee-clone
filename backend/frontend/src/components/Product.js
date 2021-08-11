@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
+import { useHistory } from "react-router-dom";
 
 export const types = {
   addToCart: "addToCart",
@@ -10,13 +11,20 @@ export const types = {
 };
 
 const Product = ({ product, handleOnClick, type }) => {
-  const { djangoUserId } = useAuth();
+  const { djangoUserId, user } = useAuth();
+  const history = useHistory();
 
   const typeToButton = {
     [types.addToCart]: (
       <Button
-        onClick={() => handleOnClick(product)}
-        className="addToCartBtn"
+        onClick={() => {
+          if (!user) {
+            history.push("/sign-in");
+            return;
+          }
+          handleOnClick(product);
+        }}
+        className="sc-addToCartBtn"
         disabled={djangoUserId === product.seller}
         variant="light"
       >
@@ -40,10 +48,10 @@ const Product = ({ product, handleOnClick, type }) => {
   const price = product.price;
 
   return (
-    <Card>
+    <Card className="sc-card">
       <Link to={`/products/${id}`}>
         <Card.Img variant="top" src={imageURL}></Card.Img>
-        <div style={{ flex: "1 1 auto", padding: "1rem", height: "5rem" }}>
+        <div className="sc-card-body">
           <Card.Title>{name}</Card.Title>
           <Card.Text>Price : S${price}</Card.Text>
         </div>

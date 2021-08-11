@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useAuth } from "./AuthContext";
 import useFetch from "./useFetch";
+import useInfiniteScroll from "./useInfiniteScroll";
 import Transaction from "./Transaction";
 
 export default function TransactionList() {
   const { djangoUserId } = useAuth();
   const [transactions, setTransactions] = useState([]);
-  const [pageNumber] = useState(1);
-  const { isLoading } = useFetch(
+  const [pageNumber, setPageNumber] = useState(1);
+  const { isLoading, hasNextPage } = useFetch(
     `/api/user-transactions/${djangoUserId}/?page=${pageNumber}`,
-    setTransactions
+    (data) =>
+      setTransactions((prevProducts) => [...prevProducts, ...data.results])
   );
+  const bottomBoundaryRef = useRef(null);
+  const bottomBoundaryElement = (
+    <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
+  );
+  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading, hasNextPage);
 
-  return isLoading ? (
-    <Container>
-      <Row>
-        <Col>Loading</Col>
-      </Row>
-    </Container>
-  ) : (
+  return (
     <Container>
       <Row>
         <Col>
@@ -40,6 +41,7 @@ export default function TransactionList() {
       {transactions.map((transaction, index) => (
         <Transaction key={index} transaction={transaction} />
       ))}
+      {bottomBoundaryElement}
     </Container>
   );
 }
