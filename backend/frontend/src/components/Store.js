@@ -10,7 +10,7 @@ import useFetch from "./useFetch";
 import useInfiniteScroll from "./useInfiniteScroll";
 import fetchData from "./fetchData";
 
-export default function Store() {
+const Store = () => {
   const { djangoUserId } = useAuth();
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -56,4 +56,6 @@ export default function Store() {
       </Row>
     </Container>
   );
-}
+};
+
+export default Store;

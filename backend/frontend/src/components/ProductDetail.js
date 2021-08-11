@@ -5,11 +5,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import PropTypes from "prop-types";
 import { useAuth } from "./AuthContext";
 import { useHistory } from "react-router-dom";
+import { useCart } from "./CartContext";
 
-export default function ProductDetail({ addToCart }) {
+const ProductDetail = () => {
+  const { addToCart } = useCart();
   const { id } = useParams();
   const [product, setProduct] = useState();
   const { djangoUserId, user } = useAuth();
@@ -45,8 +46,6 @@ export default function ProductDetail({ addToCart }) {
       </Row>
     </Container>
   );
-}
-
-ProductDetail.propTypes = {
-  addToCart: PropTypes.func,
 };
+
+export default ProductDetail;

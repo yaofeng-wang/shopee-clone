@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import PropTypes from "prop-types";
 
-export default function PrivateRoute({ renderFunc, ...rest }) {
+const PrivateRoute = ({ renderFunc, ...rest }) => {
   const { user } = useAuth();
 
   return (
@@ -14,8 +14,10 @@ export default function PrivateRoute({ renderFunc, ...rest }) {
       }}
     ></Route>
   );
-}
+};
 
 PrivateRoute.propTypes = {
   renderFunc: PropTypes.func,
 };
+
+export default PrivateRoute;

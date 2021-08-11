@@ -7,7 +7,7 @@ import useFetch from "./useFetch";
 import useInfiniteScroll from "./useInfiniteScroll";
 import Transaction from "./Transaction";
 
-export default function TransactionList() {
+const TransactionList = () => {
   const { djangoUserId } = useAuth();
   const [transactions, setTransactions] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -44,4 +44,6 @@ export default function TransactionList() {
       {bottomBoundaryElement}
     </Container>
   );
-}
+};
+
+export default TransactionList;

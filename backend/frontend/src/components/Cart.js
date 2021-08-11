@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
 import fetchData from "./fetchData";
+import { useCart } from "./CartContext";
 
-export default function Cart({ cart, removeFromCart }) {
+export const Cart = () => {
   const [displayedItems, setDisplayedItems] = useState([]);
   const { djangoUserId } = useAuth();
+  const { cart, removeFromCart } = useCart();
 
   const handleCheckout = (cart) => {
     cart.forEach((value) => {
@@ -102,9 +103,6 @@ export default function Cart({ cart, removeFromCart }) {
       )}
     </>
   );
-}
-
-Cart.propTypes = {
-  cart: PropTypes.object,
-  removeFromCart: PropTypes.func,
 };
+
+export default Cart;

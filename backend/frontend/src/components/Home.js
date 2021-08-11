@@ -3,9 +3,10 @@ import { types } from "./Product";
 import useFetch from "./useFetch";
 import useInfiniteScroll from "./useInfiniteScroll";
 import ProductList from "./ProductList";
-import PropTypes from "prop-types";
+import { useCart } from "./CartContext";
 
-const Home = ({ addToCart }) => {
+const Home = () => {
+  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const { isLoading, hasNextPage } = useFetch(
@@ -27,10 +28,6 @@ const Home = ({ addToCart }) => {
       bottomBoundaryElement={bottomBoundaryElement}
     />
   );
-};
-
-Home.propTypes = {
-  addToCart: PropTypes.func,
 };
 
 export default Home;
