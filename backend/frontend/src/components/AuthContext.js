@@ -4,6 +4,7 @@ import "firebase/auth";
 import PropTypes from "prop-types";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useHistory } from "react-router-dom";
+import fetchData from "./fetchData";
 
 const authContext = createContext();
 
@@ -61,20 +62,13 @@ function useProvideAuth() {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
-        let data = new FormData();
-        data.append("email", user.email);
-        data.append("username", user.displayName);
-        await fetch("http://localhost/api/user-id/", {
-          method: "POST",
-          body: data,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            setDjangoUserId(data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        fetchData(
+          "http://localhost/api/user-id/",
+          "POST",
+          (data) => setDjangoUserId(data),
+          JSON.stringify({ username: user.displayName, email: user.email }),
+          { "Content-Type": "application/json" }
+        );
         history.push("/");
       } else {
         setUser(false);

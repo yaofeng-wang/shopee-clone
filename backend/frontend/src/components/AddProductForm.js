@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
 import PropTypes from "prop-types";
+import fetchData from "./fetchData";
 
 const AddProductForm = ({ addProduct }) => {
   const nameRef = useRef();
@@ -10,7 +11,7 @@ const AddProductForm = ({ addProduct }) => {
   const imageRef = useRef();
   const { djangoUserId } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let data = new FormData();
     data.append("seller", djangoUserId);
@@ -21,19 +22,15 @@ const AddProductForm = ({ addProduct }) => {
       imageRef.current.files[0],
       imageRef.current.files[0].name
     );
-
-    await fetch("http://localhost/api/products/", {
-      method: "POST",
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    fetchData(
+      "http://localhost/api/products/",
+      "POST",
+      (data) => {
         addProduct(data);
         document.getElementById("add-product-form").reset();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      },
+      data
+    );
   };
 
   return (

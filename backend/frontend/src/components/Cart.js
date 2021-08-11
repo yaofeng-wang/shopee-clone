@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useAuth } from "./AuthContext";
+import fetchData from "./fetchData";
 
 export default function Cart({ cart, removeFromCart }) {
   const [displayedItems, setDisplayedItems] = useState([]);
@@ -17,17 +18,13 @@ export default function Cart({ cart, removeFromCart }) {
         product: value[0].id,
         buyer: djangoUserId,
       });
-      fetch("http://localhost/api/transactions/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: data,
-      })
-        .then(() => {
-          removeFromCart(value[0]);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchData(
+        "http://localhost/api/transactions/",
+        "POST",
+        () => removeFromCart(value[0]),
+        data,
+        { "Content-Type": "application/json" }
+      );
     });
   };
 
