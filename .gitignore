@@ -8,3 +8,8 @@ data/
 __pycache__/
 migrations/
 backend/mediafiles/*
+
+.env.dev
+.env.debug
+.env.prod
+backend/frontend/.env.local
