@@ -34,12 +34,19 @@ export const Cart = () => {
   useEffect(() => {
     for (const [k, v] of cart[Symbol.iterator]()) {
       const newItem = (
-        <Row key={k} style={{ border: "1px solid black" }}>
+        <Row
+          key={k}
+          style={{
+            padding: "1rem",
+            border: "1px solid black",
+            height: "20rem",
+          }}
+        >
           <Col sm={3}>
             <img
               variant="left"
               src={v[0].image}
-              style={{ width: "100%" }}
+              style={{ width: "100%", height: "18rem" }}
             ></img>
           </Col>
           <Col
