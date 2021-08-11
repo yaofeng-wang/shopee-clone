@@ -27,12 +27,12 @@ firebase.initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
 
-export function ProvideAuth({ children }) {
+export const ProvideAuth = ({ children }) => {
   const auth = useProvideAuth();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-}
+};
 
-function useProvideAuth() {
+const useProvideAuth = () => {
   const [user, setUser] = useState(null);
   const history = useHistory();
   const [djangoUserId, setDjangoUserId] = useState(null);
@@ -85,7 +85,7 @@ function useProvideAuth() {
     signInButton,
     djangoUserId,
   };
-}
+};
 
 ProvideAuth.propTypes = {
   children: PropTypes.any,

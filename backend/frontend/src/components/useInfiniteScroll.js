@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 
-export default function useInfiniteScroll(
-  scrollRef,
-  setPage,
-  isLoading,
-  hasNextPage
-) {
+const useInfiniteScroll = (scrollRef, setPage, isLoading, hasNextPage) => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
@@ -27,4 +22,6 @@ export default function useInfiniteScroll(
       }
     };
   }, [scrollRef, setPage, isLoading, hasNextPage]);
-}
+};
+
+export default useInfiniteScroll;

@@ -4,7 +4,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 
-export default function SearchBar() {
+const SearchBar = () => {
   const history = useHistory();
   const [searchQuery, setSearchQuery] = useState("Search");
 
@@ -26,4 +26,6 @@ export default function SearchBar() {
       </Button>
     </Form>
   );
-}
+};
+
+export default SearchBar;

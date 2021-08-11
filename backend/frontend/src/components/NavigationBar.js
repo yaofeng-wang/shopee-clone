@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import SearchBar from "./SearchBar";
 import Badge from "react-bootstrap/Badge";
-import PropTypes from "prop-types";
+import { useCart } from "./CartContext";
 
-const NavigationBar = ({ cart }) => {
+const NavigationBar = () => {
   const { user, signout } = useAuth();
+  const { cart } = useCart();
 
   return (
     <div className="sc-navbar">
@@ -32,10 +33,6 @@ const NavigationBar = ({ cart }) => {
       </div>
     </div>
   );
-};
-
-NavigationBar.propTypes = {
-  cart: PropTypes.object,
 };
 
 export default NavigationBar;

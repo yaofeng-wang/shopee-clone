@@ -1,7 +1,7 @@
 import { useAuth } from "./AuthContext";
 import { Redirect } from "react-router-dom";
 
-export default function SignIn() {
+const SignIn = () => {
   const { user, signInButton } = useAuth();
 
   return (
@@ -13,6 +13,6 @@ export default function SignIn() {
       )}
     </>
   );
-}
+};
 
-SignIn.propTypes = {};
+export default SignIn;

@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Account from "./Account";
 import TransactionList from "./TransactionList";
 
-export default function Profile() {
+const Profile = () => {
   const [key, setKey] = useState("account");
 
   return (
@@ -20,4 +20,6 @@ export default function Profile() {
       </Tabs>
     </Container>
   );
-}
+};
+
+export default Profile;
