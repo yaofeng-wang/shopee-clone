@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 
-const useFetch = (url, setData) => {
+const useFetch = (url, successCallback) => {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(false);
 
   useEffect(() => {
     const abortCont = new AbortController();
 
+    setIsLoading(true);
+    setHasNextPage(false);
     fetch(url, { signal: abortCont.signal })
       .then((res) => {
         if (!res.ok) {
@@ -15,14 +18,8 @@ const useFetch = (url, setData) => {
         return res.json();
       })
       .then((data) => {
-        setData((prevProducts) => {
-          if (Array.isArray(prevProducts)) {
-            return [...prevProducts, ...data.results];
-          } else {
-            return data;
-          }
-        });
-
+        successCallback(data);
+        setHasNextPage(data.next !== null);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -35,6 +32,7 @@ const useFetch = (url, setData) => {
   return {
     error,
     isLoading,
+    hasNextPage,
   };
 };
 

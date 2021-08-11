@@ -14,15 +14,15 @@ export default function Store() {
   const { djangoUserId } = useAuth();
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const { isLoading } = useFetch(
+  const { isLoading, hasNextPage } = useFetch(
     `http://localhost/api/user-products/${djangoUserId}/?page=${pageNumber}`,
-    setProducts
+    (data) => setProducts((prevProducts) => [...prevProducts, ...data.results])
   );
   const bottomBoundaryRef = useRef(null);
   const bottomBoundaryElement = (
     <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
   );
-  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
+  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading, hasNextPage);
 
   const deleteProduct = (product) => {
     fetchData(`http://localhost/api/products/${product.id}`, "DELETE");

@@ -13,18 +13,20 @@ export default function Cart({ cart, removeFromCart }) {
 
   const handleCheckout = (cart) => {
     cart.forEach((value) => {
-      const data = JSON.stringify({
-        seller: value[0].seller,
-        product: value[0].id,
-        buyer: djangoUserId,
-      });
-      fetchData(
-        "http://localhost/api/transactions/",
-        "POST",
-        () => removeFromCart(value[0]),
-        data,
-        { "Content-Type": "application/json" }
-      );
+      for (let i = 0; i < value[1]; i++) {
+        const data = JSON.stringify({
+          seller: value[0].seller,
+          product: value[0].id,
+          buyer: djangoUserId,
+        });
+        fetchData(
+          "http://localhost/api/transactions/",
+          "POST",
+          () => removeFromCart(value[0]),
+          data,
+          { "Content-Type": "application/json" }
+        );
+      }
     });
   };
 

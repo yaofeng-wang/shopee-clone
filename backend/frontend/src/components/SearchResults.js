@@ -14,28 +14,32 @@ export const SearchResults = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const query = useQuery();
-  const { isLoading } = useFetch(
+  const { isLoading, hasNextPage } = useFetch(
     `http://localhost/api/products-filter/?page=${pageNumber}&search=${query.get(
       "search"
     )}`,
-    setProducts
+    (data) =>
+      setProducts((prevProducts) => {
+        if (pageNumber > 1) {
+          return [...prevProducts, ...data.results];
+        }
+        return [...data.results];
+      })
   );
   const bottomBoundaryRef = useRef(null);
   const bottomBoundaryElement = (
     <div id="bottomBoundaryRef" ref={bottomBoundaryRef}></div>
   );
-  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading);
+  useInfiniteScroll(bottomBoundaryRef, setPageNumber, isLoading, hasNextPage);
 
   return (
-    <div>
-      <ProductList
-        products={products}
-        handleOnClick={addToCart}
-        type={types.addToCart}
-        isLoading={isLoading}
-        bottomBoundaryElement={bottomBoundaryElement}
-      />
-    </div>
+    <ProductList
+      products={products}
+      handleOnClick={addToCart}
+      type={types.addToCart}
+      isLoading={isLoading}
+      bottomBoundaryElement={bottomBoundaryElement}
+    />
   );
 };
 

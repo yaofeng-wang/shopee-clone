@@ -1,4 +1,4 @@
-const fetchData = (url, method, fetchSuccessFunc, body, headers = {}) => {
+const fetchData = (url, method, successCallback, body, headers = {}) => {
   let error = null;
   let isLoading = true;
 
@@ -32,7 +32,7 @@ const fetchData = (url, method, fetchSuccessFunc, body, headers = {}) => {
       return res.json();
     })
     .then((data) => {
-      fetchSuccessFunc(data);
+      successCallback(data);
       isLoading = false;
     })
     .catch((err) => {
